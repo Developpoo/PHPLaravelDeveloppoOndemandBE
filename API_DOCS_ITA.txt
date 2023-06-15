@@ -1,0 +1,1313 @@
+#######################################################################
+INTRODUZIONE A PROGETTO DeveloppoOndemandBE Backend
+#######################################################################
+
+INTRODUZIONE:
+Questi endpoint rappresentano un buon inizio per popolare e gestire questo sistema per gestire il DB e gestire tutte le tabelle ed i campi in esse contenute. Lo scopo di questo progetto è gettare le basi per un ondemand di soli Film che potrà essere gestito con 3 livelli di autenticazione:
+
+Visitor: può sostanzialmente navigare nella home ed iscriversi
+
+User: può vedere i film e aggiungersi delle unità di credito oltre a visualizzare e modificare i suoi dati personali
+
+Administrator: il Re Leone del progetto... può sostanzialmente fare tutto quello che il sistema permette
+
+#######################################################################
+TEST UNIT
+#######################################################################
+
+I test unit sono utilizzati per verificare il corretto funzionamento delle singole unità di codice, come funzioni, classi o metodi, in modo isolato dagli altri componenti del sistema.
+
+Ho sviluppato una suite di test unit che copre ampiamente le funzionalità principali della classe ..\app\Helpers\AppHelpers.php, garantendo che le varie componenti siano correttamente implementate e rispondano in modo coerente.
+
+#######################################################################
+TEST FEATURE
+#######################################################################
+
+I test di integrazione, comunemente noti come test features, sono utilizzati per verificare il corretto funzionamento delle funzionalità dell'API nel suo insieme. Questi test sono progettati per simulare scenari realistici in cui diversi componenti dell'API interagiscono tra loro e con l'ambiente circostante.
+
+Ho sviluppato qualche Test Feature per fare un esempio che questi sono eseguiti in modo regolare durante il processo di sviluppo e prima di ogni rilascio per garantire che l'API sia stabile, funzionante e pronta per essere utilizzata in produzione.
+
+NOTA: nel Test UserClientControllerTest.php si evidenziano probabili problemi di versionamento con la versione 10 di laravel... una variabile da errore non considerare questi attendibili come test.
+
+#######################################################################
+FACTORIES
+#######################################################################
+
+Create Factories: ConfigurationModelFactory, indirizzoModelFactory, userClientModelFactory.
+
+***********************************************************************
+
+#######################################################################
+Documentazione API REST DeveloppoOndemandBE
+-----------------------------------------------------------------------
+www.developpo.com/developpoOndemandBE/api/v1 = (_VERS)
+#######################################################################
+***********************************************************************
+// API FREE
+***********************************************************************
+// Recupera le informazioni di un client utente con un hash di autenticazione opzionale.
+GET _VERS/signClient/{userClient}/{hash?}
+
+QueryString
+id= identificativo utente / hash = user UserClient
+
+Errori
+500 Possibili errori server
+
+Ritorno
+200 OK
+salt UserClient 
+error:null
+message:null
+
+
+Note
+Ritorna comunque il salt qualsiasi valore gli diamo in aggiunzione
+
+-----------------------------------------------------------------------
+
+// Cerca un utente client per nome utente.
+GET _VERS/searchUserClient/{user}
+
+QueryString
+user = hash user in UserClient
+
+Errori
+500 Possibili errori server
+
+Ritorno
+200 OK
+true se trova l'user
+false se non trova l'user
+{error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+// Registra un nuovo utente client.
+POST _VERS/registrazione
+
+QueryString
+body =Json
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+
+Payload
+{nome:string, cognome;string, Data nascita: date, CF; string....}
+
+Ritorno
+201 OK
+{data[{nome:string, cognome;string, Data nascita: date, CF; string....}],
+error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+// Recupera tutti i ruoli utente disponibili.
+GET _VERS/userRole
+
+QueryString
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+
+Ritorno
+200 OK
+{data[{nome:string....}],
+error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+// Recupera le informazioni di un ruolo utente specifico.
+GET _VERS/userRole/{idUserRole}
+
+QueryString
+id = identificativo Role
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+
+Ritorno
+200 OK
+{data[{nome:string....}],
+error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+// Recupera tutti gli stati utente disponibili.
+GET _VERS/userStatus
+
+QueryString
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+
+Ritorno
+200 OK
+{data[{nome:string....}],
+error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+// Recupera le informazioni di uno stato utente specifico.
+GET _VERS/userStatus/{idUserStatus}
+
+QueryString
+id = identificativo status
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+
+Ritorno
+200 OK
+{data[{nome:string....}],
+error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+// Recupera l'elenco dei comuni italiani.
+GET _VERS/comuniItaliani
+
+QueryString
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+
+Ritorno
+200 OK
+{data[{id:integer, comune:string, regione:string, provincia:string, targa:string, prefissoTelefonico:string....}],
+error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+
+// Recupera le informazioni di un comune italiano specifico.
+GET _VERS/comuniItaliani/{comune}
+
+QueryString
+id = identificativo comune
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+
+Ritorno
+200 OK
+{data[{id:integer, comune:string, regione:string, provincia:string, targa:string, prefissoTelefonico:string}],
+error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+// Recupera l'elenco delle nazioni.
+GET _VERS/nazioni
+
+QueryString
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+
+Ritorno
+200 OK
+{data[{id:integer, nome:string, continente:string, ISO3:string, ISO:string, prefissoTelefonico:string....}],
+error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+// Recupera le informazioni di una nazione specifica.
+GET _VERS/nazioni/{nazione}
+
+QueryString
+id = identificativo Nazione
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+
+Ritorno
+200 OK
+{data[{id:integer, nome:string, continente:string, ISO3:string, ISO:string, prefissoTelefonico:string....}],
+error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+// Recupera l'elenco delle nazioni in base a un continente specifico.
+GET _VERS/nazioni/continente/{continente}
+
+QueryString
+string = identificativo continente
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+
+Ritorno
+200 OK
+{data[{id:integer, nome:string, continente:string, ISO3:string, ISO:string, prefissoTelefonico:string....}],
+error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+// Recupera l'elenco dei tipi di indirizzo.
+GET _VERS/tipoIndirizzi
+
+QueryString
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+
+Ritorno
+200 OK
+{data[{id:integer, nome:string....}],
+error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+// Recupera le informazioni di un tipo di indirizzo specifico.
+GET _VERS/tipoIndirizzi/{tipoIndirizzo}
+
+QueryString
+id = identificativo tipoIndirizzo
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+
+Ritorno
+200 OK
+{data[{id:integer, nome:string}],
+error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+// Recupera l'elenco dei tipi di recapito.
+GET _VERS/tipoRecapiti
+
+QueryString
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+
+Ritorno
+200 OK
+{data[{id:integer, nome:string....}],
+error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+// Recupera le informazioni di un tipo di recapito specifico.
+GET _VERS/tipoRecapiti/{idTipoRecapito}
+
+QueryString
+id = identificativo tipoRecapito
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+
+Ritorno
+200 OK
+{data[{id:integer, nome:string}],
+error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+***********************************************************************
+// ROUTE DI AUTENTICAZIONE PER UTENTI CLIENT E AMMINISTRATORI
+***********************************************************************
+// Queste route richiedono autenticazione e autorizzazione come Amministratore o Utente Client.
+***********************************************************************
+// USER CLIENT
+// Recupera le informazioni di un utente client specifico.
+GET _VERS/userClient/{idUserClient}
+
+QueryString
+id = identificativo UserClient - token nel bearer
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+403 Permessi mancanti
+
+Ritorno
+200 OK
+{data[{nome:string, cognome:string, Data nascita:date, CF:string}],
+error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+// Aggiorna le informazioni di un utente client specifico.
+PUT _VERS/userClient/{idUserClient}
+
+QueryString
+id = identificativo UserClient - body = Json - token nel bearer
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+403 Permessi mancanti
+
+Payload
+{nome:string, cognome;string, Data nascita: date, CF; string....}
+
+Ritorno
+201 OK
+{data[{nome:string, cognome;string, Data nascita: date, CF; string....}],
+error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+// Registra un nuovo utente client.
+POST _VERS/userClient
+
+QueryString
+body = Json - token nel bearer
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+403 Permessi mancanti
+
+Payload
+{nome:string, cognome;string, Data nascita: date, CF; string....}
+
+Ritorno
+201 OK
+{data[{nome:string, cognome;string, Data nascita: date, CF; string....}],
+error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+// Elimina un utente client specifico.
+DELETE _VERS/userClient/{idUserClient}
+
+QueryString
+id= identificativo UserClient - token nel bearer
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+403 Permessi mancanti
+
+Ritorno
+{data:null
+204 No Content},
+{error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+// INDIRIZZI
+// Recupera le informazioni di un indirizzo specifico.
+GET _VERS/indirizzi/{idIndirizzo}
+
+QueryString
+id = identificativo idIndirizzo - token nel bearer
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+403 Permessi mancanti
+
+Ritorno
+200 OK
+{data[{id:integer, idTipoIndirizzo:integer, idComune:integer, localita:string, cap:string, indirizzo:string, civico:string, idNazione:integer, idUserClient:integer}],
+error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+// Aggiorna le informazioni di un indirizzo specifico.
+PUT _VERS/indirizzi/{idIndirizzo}
+
+QueryString
+id = identificativo Indirizzo - body = Json - token nel bearer
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+403 Permessi Mancanti
+
+Payload
+{id:integer, idTipoIndirizzo:integer, idComune:integer, localita:string, cap:string, indirizzo:string, civico:string, idNazione:integer, idUserClient:integer}
+
+Ritorno
+201 OK
+{data[{id:integer, idTipoIndirizzo:integer, idComune:integer, localita:string, cap:string, indirizzo:string, civico:string, idNazione:integer, idUserClient:integer}],
+error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+// Registra un nuovo indirizzo.
+POST _VERS/indirizzi
+
+QueryString
+body = Json - token nel bearer
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+403 Permessi Mancanti
+
+Payload
+{id:integer, idTipoIndirizzo:integer, idComune:integer, localita:string, cap:string, indirizzo:string, civico:string, idNazione:integer, idUserClient:integer}
+
+Ritorno
+201 OK
+{data[{id:integer, idTipoIndirizzo:integer, idComune:integer, localita:string, cap:string, indirizzo:string, civico:string, idNazione:integer, idUserClient:integer}],
+error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+// Elimina un indirizzo specifico.
+DELETE _VERS/indirizzi/{idIndirizzo}
+
+QueryString
+id= identificativo idIndirizzo - token nel bearer
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+403 Permessi mancanti
+
+Ritorno
+{data:null
+204 No Content},
+{error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+// RECAPITI
+// Recupera le informazioni di un recapito specifico.
+GET _VERS/recapiti/{idRecapito}
+
+QueryString
+id = identificativo idRecapito - token nel bearer
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+403 Permessi mancanti
+
+Ritorno
+200 OK
+{data[{id:integer, idTipoRecapito:integer, recapito:string, preferito:integer, idUserClient:integer}],
+error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+
+// Aggiorna le informazioni di un recapito specifico.
+PUT _VERS/recapiti/{idRecapito}
+
+QueryString
+id = identificativo Recapito - body = Json - token nel bearer
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+403 Permessi mancanti
+
+Payload
+{id:integer, idTipoRecapito:integer, recapito:string, preferito:integer, idUserClient:integer}
+
+Ritorno
+201 OK
+{data[{id:integer, idTipoRecapito:integer, recapito:string, preferito:integer, idUserClient:integer}],
+error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+// Registra un nuovo recapito.
+POST _VERS/recapiti
+
+QueryString
+body = Json - token nel bearer
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+403 Permessi Mancanti
+
+Payload
+{id:integer, idTipoRecapito:integer, recapito:string, preferito:integer, idUserClient:integer}
+
+Ritorno
+201 OK
+{data[{id:integer, idTipoRecapito:integer, recapito:string, preferito:integer, idUserClient:integer}],
+error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+
+// Elimina un recapito specifico.
+DELETE _VERS/recapiti/{idRecapito}
+
+QueryString
+id= identificativo idRecapito - token nel bearer
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+403 Permessi mancanti
+
+Ritorno
+{data:null
+204 No Content},
+{error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+// CREDITO
+// Recupera le informazioni di un credito specifico.
+GET _VERS/crediti/{idCredito}
+
+QueryString
+id = identificativo idCredito - token nel bearer
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+403 Permessi mancanti
+
+Ritorno
+200 OK
+{data[{id:integer, watch:integer, credito:string, idUserClient:integer}],
+error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+// Aggiorna il valore di un credito specifico per un utente client.
+POST _VERS/crediti/{idCredito}/{value}
+
+QueryString
+integer = dati value - id = identificativo Credito - body = Json - token nel bearer
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+
+Payload
+{id:integer, watch:integer, credito:string, idUserClient:integer}
+
+Ritorno
+201 OK
+{data[{id:integer, watch:integer, credito:string, idUserClient:integer}],
+error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+//CATEGORY
+// Recupera l'elenco delle categorie.
+GET _VERS/category
+
+QueryString
+token nel bearer
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+403 Permessi mancanti
+
+Ritorno
+200 OK
+{data[{id:integer, nome:string...}],
+error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+// Recupera le informazioni di una categoria specifica.
+GET _VERS/category/{idCategory}
+
+QueryString
+id = identificativo idCategory - token nel bearer
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+403 Permessi mancanti
+
+Ritorno
+200 OK
+{data[{id:integer, nome:string}],
+error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+// FILM
+// Recupera l'elenco dei film.
+GET _VERS/film
+
+QueryString
+token nel bearer
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+403 Permessi mancanti
+
+Ritorno
+200 OK
+{data[{id:integer, titolo:string, descrizione:string, durata:integer, regista:string, attori:string, anno:integer, watch:integer...}],
+error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+// Recupera gli ultimi film per un determinato numero.
+GET _VERS/film/ultimi/{numero}
+
+QueryString
+n = number -token nel bearer
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+403 Permessi mancanti
+
+Ritorno
+200 OK
+{data[{id:integer, titolo:string, descrizione:string, durata:integer, regista:string, attori:string, anno:integer, watch:integer...}],
+error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+// Recupera l'elenco dei film per una determinata categoria.
+GET _VERS/film/category/{idCategory}
+
+QueryString
+id = identificativo idCategory -token nel bearer
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+403 Permessi mancanti
+
+Ritorno
+200 OK
+{data[{id:integer, titolo:string, descrizione:string, durata:integer, regista:string, attori:string, anno:integer, watch:integer}],
+error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+// Recupera le informazioni di un film specifico.
+GET _VERS/film/{idFilm}
+
+QueryString
+id = identificativo idFilm -token nel bearer
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+403 Permessi mancanti
+
+Ritorno
+200 OK
+{data[{id:integer, titolo:string, descrizione:string, durata:integer, regista:string, attori:string, anno:integer, watch:integer}],
+error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+***********************************************************************
+// ROUTE DI AUTENTICAZIONE PER AMMINISTRATORI
+***********************************************************************
+// Queste route richiedono autenticazione e autorizzazione come Amministratore.
+***********************************************************************
+// USER CLIENT
+// Recupera l'elenco degli utenti client.
+GET _VERS/userClient
+
+QueryString
+token nel bearer
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+403 Permessi mancanti
+
+Ritorno
+200 OK
+{data[{id:integer, nome:string, cognome:string, Data nascita:date, CF:string...}],
+error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+// CONFIGURATION
+// Recupera l'elenco delle configurazioni.
+GET _VERS/configuration
+
+QueryString
+token nel bearer
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+403 Permessi mancanti
+
+Ritorno
+200 OK
+{data[{id:integer, key:string, value:string...}],
+error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+// Recupera le informazioni di una configurazione specifica.
+GET _VERS/configuration/{configuration}
+
+QueryString
+id = identificativo idConfiguration - token nel bearer
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+403 Permessi mancanti
+
+Ritorno
+200 OK
+{data[{id:integer, key:string, value:string}],
+error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+// INDIRIZZI
+// Recupera l'elenco degli indirizzi.
+GET _VERS/indirizzi
+
+QueryString
+token nel bearer
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+403 Permessi mancanti
+
+Ritorno
+200 OK
+{data[{id:integer, idTipoIndirizzo:integer, idComune:integer, localita:string, cap:string, indirizzo:string, civico:string, idNazione:integer, idUserClient:integer...}],
+error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+// TIPO INDIRIZZI
+// Aggiorna le informazioni di un tipo di indirizzo specifico.
+PUT _VERS/tipoIndirizzi/{tipoIndirizzo}
+
+QueryString
+id = identificativo tipoIndirizzo - body = Json - token nel bearer
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+403 Permessi mancanti
+
+Payload
+{id:integer, idTipoRecapito:integer, recapito:string, preferito:integer, idUserClient:integer}
+
+Ritorno
+201 OK
+{data[{id:integer, idTipoRecapito:integer, recapito:string, preferito:integer, idUserClient:integer}],
+error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+// Registra un nuovo tipo di indirizzo.
+POST _VERS/tipoIndirizzi
+
+QueryString
+body = Json - token nel bearer
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+403 Permessi mancanti
+
+Payload
+{id:integer, idTipoRecapito:integer, recapito:string, preferito:integer, idUserClient:integer}
+
+Ritorno
+201 OK
+{data[{id:integer, idTipoRecapito:integer, recapito:string, preferito:integer, idUserClient:integer}],
+error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+// Elimina un tipo di indirizzo specifico.
+DELETE _VERS/tipoIndirizzi/{tipoIndirizzo}
+
+QueryString
+id= identificativo tipoIndirizzo - token nel bearer
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+403 Permessi mancanti
+
+Ritorno
+{data:null
+204 No Content},
+{error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+// RECAPITI
+// Recupera l'elenco dei recapiti.
+GET _VERS/recapito
+
+QueryString
+token nel bearer
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+403 Permessi mancanti
+
+Ritorno
+200 OK
+{data[{id:integer, idTipoRecapito:integer, recapito:string, preferito:integer, idUserClient:integer...}],
+error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+// TIPO RECAPITI
+// Aggiorna le informazioni di un tipo di recapito specifico.
+PUT _VERS/tipoRecapiti/{idTipoRecapito}
+
+QueryString
+id = identificativo tipoRecapito - body = Json - token nel bearer
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+403 Permessi Mancanti
+
+Payload
+{id:integer, idTipoRecapito:integer, recapito:string, preferito:integer, idUserClient:integer}
+
+Ritorno
+201 OK
+{data[{id:integer, idTipoRecapito:integer, recapito:string, preferito:integer, idUserClient:integer}],
+error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+// Registra un nuovo tipo di recapito.
+POST _VERS/tipoRecapiti
+
+QueryString
+body = Json - token nel bearer
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+403 Permessi mancanti
+
+Payload
+{id:integer, idTipoRecapito:integer, recapito:string, preferito:integer, idUserClient:integer}
+
+Ritorno
+201 OK
+{data[{id:integer, idTipoRecapito:integer, recapito:string, preferito:integer, idUserClient:integer}],
+error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+// Elimina un tipo di recapito specifico.
+DELETE _VERS/tipoRecapiti/{idTipoRecapito}
+
+QueryString
+id= identificativo tipoRecapito - token nel bearer
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+403 Permessi mancanti
+
+Ritorno
+{data:null
+204 No Content},
+{error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+// USER STATUS
+// Aggiorna le informazioni di uno stato utente specifico.
+PUT _VERS/userStatus/{idUserStatus}
+
+QueryString
+id = identificativo userStatus - body = Json - token nel bearer
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+
+Payload
+{nome:string....}
+
+Ritorno
+201 OK
+{data[{nome:string....}],
+error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+// Registra un nuovo stato utente.
+POST _VERS/userStatus
+
+QueryString
+body = Json - token nel bearer
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+
+Payload
+{nome:string....}
+
+Ritorno
+201 OK
+{data[{nome:string....}],
+error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+// Elimina uno stato utente specifico.
+DELETE _VERS/userStatus/{idUserStatus}
+
+QueryString
+id= identificativo userStatus - token nel bearer
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+403 Permessi mancanti
+
+Ritorno
+{data:null
+204 No Content},
+{error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+// USER ROLE
+// Aggiorna le informazioni di un ruolo utente specifico.
+PUT _VERS/userRole/{idUserRole}
+
+QueryString
+id = identificativo userRole - body = Json - token nel bearer
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+
+Payload
+{nome:string....}
+
+Ritorno
+201 OK
+{data[{nome:string....}],
+error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+// Registra un nuovo ruolo utente.
+POST _VERS/userRole
+
+QueryString
+body = Json - token nel bearer
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+
+Payload
+{nome:string....}
+
+Ritorno
+201 OK
+{data[{nome:string....}],
+error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+// Elimina un ruolo utente specifico.
+DELETE _VERS/userRole/{idUserRole}
+
+QueryString
+id= identificativo userRole - token nel bearer
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+403 Permessi mancanti
+
+Ritorno
+{data:null
+204 No Content},
+{error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+// CREDITO
+// Recupera l'elenco dei crediti.
+GET _VERS/crediti
+
+QueryString
+token nel bearer
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+403 Permessi mancanti
+
+Ritorno
+200 OK
+{data[{id:integer, watch:integer, credito:string, idUserClient:integer...}],
+error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+// Registra un nuovo credito.
+POST _VERS/crediti
+
+QueryString
+body = Json - token nel bearer
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+
+Payload
+{nome:string....}
+
+Ritorno
+201 OK
+{data[{nome:string....}],
+error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+// Aggiorna le informazioni di un credito specifico.
+PUT _VERS/crediti/{idCredito}
+
+QueryString
+id = identificativo Credito - body = Json - token nel bearer
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+
+Payload
+{id:integer, watch:integer, credito:string, idUserClient:integer}
+
+Ritorno
+201 OK
+{data[{id:integer, watch:integer, credito:string, idUserClient:integer}],
+error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+// Elimina un credito specifico.
+DELETE _VERS/crediti/{idCredito}
+
+QueryString
+id= identificativo Credito - token nel bearer
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+403 Permessi mancanti
+
+Ritorno
+{data:null
+204 No Content},
+{error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+// CATEGORIE
+// Registra una nuova categoria.
+POST _VERS/category
+
+QueryString
+body = Json - token nel bearer
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+403 Permessi mancanti
+
+Payload
+{id:integer, watch:integer, credito:string, idUserClient:integer}
+
+Ritorno
+201 OK
+{data[{id:integer, nome:string}],
+error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+// Aggiorna le informazioni di una categoria specifica.
+PUT _VERS/category/{idCategory}
+
+QueryString
+id = identificativo Category - body = Json - token nel bearer
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+403 Permessi mancanti
+
+Payload
+{id:integer, watch:integer, credito:string, idUserClient:integer}
+
+Ritorno
+201 OK
+{data[{id:integer, nome:string}],
+error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+// Elimina una categoria specifica.
+DELETE _VERS/category/{idCategory}
+
+QueryString
+id= identificativo Category - token nel bearer
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+403 Permessi mancanti
+
+Ritorno
+{data:null
+204 No Content},
+{error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+// FILM
+// Registra un nuovo film.
+POST _VERS/film
+
+QueryString
+body = Json - token nel bearer
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+403 Permessi mancanti
+
+Payload
+{id:integer, watch:integer, titolo:string, descrizione:string, durata:integer, regista:string, attori:string, anno:integer}
+
+Ritorno
+201 OK
+{data[{id:integer, watch:integer, titolo:string, descrizione:string, durata:integer, regista:string, attori:string, anno:integer}],
+error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+// Aggiorna le informazioni di un film specifico.
+PUT _VERS/film/{idFilm}
+
+QueryString
+id = identificativo Film - body = Json - token nel bearer
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+403 Permessi mancanti
+
+Payload
+{id:integer, watch:integer, titolo:string, descrizione:string, durata:integer, regista:string, attori:string, anno:integer}
+
+Ritorno
+201 OK
+{data[{id:integer, watch:integer, titolo:string, descrizione:string, durata:integer, regista:string, attori:string, anno:integer}],
+error:null
+message:null}
+
+-----------------------------------------------------------------------
+
+// Elimina un film specifico.
+DELETE _VERS/film/{idFilm}
+
+QueryString
+id= identificativo Film - token nel bearer
+
+Errori
+500 Possibili errori server
+404 Risorsa non trovata
+403 Permessi mancanti
+
+Ritorno
+{data:null
+204 No Content},
+{error:null
+message:null}
+
+-----------------------------------------------------------------------
