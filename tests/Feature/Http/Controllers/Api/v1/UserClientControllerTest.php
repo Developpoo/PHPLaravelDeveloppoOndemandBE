@@ -114,7 +114,7 @@ class UserClientControllerTest extends TestCase
             'archived',
             'createb_by',
             'updated_by'
-        ]);
+        ])->toArray();
         // Invio la richiesta di inserimento dati
         $response = $this->json('POST', $this->ritornaUrl(), $requestDati);
         // Mi aspetto una risposta di tipo 201 risorsa creata
@@ -187,7 +187,7 @@ class UserClientControllerTest extends TestCase
             'archived',
             'createb_by',
             'updated_by'
-        ]);
+        ])->toArray();
         $response = $this->json('PUT', $this->ritornaUrl($userClient->idUserClient), $requestDati);
         // controllo che ci dia una risposta 200 ok
         $response->assertStatus(200);
@@ -247,7 +247,7 @@ class UserClientControllerTest extends TestCase
             'archived',
             'createb_by',
             'updated_by'
-        ]);
+        ])->toArray();
         // invio la risorsa appena creata all'endpoint per fare upload
         $response = $this->json('PUT', $this->ritornaUrl($idUserClient), $requestDati);
         // controllo che ci dia una risposta 404 File Not Found
