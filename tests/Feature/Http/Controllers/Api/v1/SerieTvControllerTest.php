@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use Illuminate\Support\Arr;
 
 class SerieTvControllerTest extends TestCase
 {
@@ -189,12 +190,11 @@ class SerieTvControllerTest extends TestCase
         $arrKey = $this->ritornaStrutturaJsonSingolaSerieTv(1);
         $arrKey = SerieTvControllerTest::pulisciArray($arrKey);
         $serieTvModel = SerieTvModel::factory()->create();
-        $requestData = SerieTvModel::factory()->make()->only("titolo");
-        $response = $this->withHeader('Authorization', 'Bearer' . $token)->json('PUT', $this->ritornaUrlSerieTv($serieTvModel->indSerieTv), $requestData);
+        $requestData = SerieTvModel::factory()->make()->toArray();
+        $requestData = Arr::only($requestData, ['titolo']);
+        $response = $this->withHeader('Authorization', 'Bearer ' . $token)->json('PUT', $this->ritornaUrlSerieTv($serieTvModel->indSerieTv), $requestData);
         $response->assertStatus(200);
-        $rit = array("titolo"=>$requestData["titolo"]);
-        $serieTvModel->refresh();
-        $rit = array('titolo' => $serieTvModel['titolo']);
+        $rit = ['titolo' => $requestData['titolo']];
         $response->assertJson(['data' => $rit]);
 
         // TEST User
@@ -202,8 +202,9 @@ class SerieTvControllerTest extends TestCase
         $arrKey = $this->ritornaStrutturaJsonSingolaSerieTv(0);
         $arrKey = SerieTvControllerTest::pulisciArray($arrKey);
         $serieTvModel = SerieTvModel::factory()->create();
-        $requestData = SerieTvModel::factory()->make()->only("titolo");
-        $response = $this->withHeader('Authorization', 'Bearer' . $token)->json('PUT', $this->ritornaUrlSerieTv($serieTvModel->indSerieTv), $requestData);
+        $requestData = SerieTvModel::factory()->make()->toArray();
+        $requestData = Arr::only($requestData, ['titolo']);
+        $response = $this->withHeader('Authorization', 'Bearer ' . $token)->json('PUT', $this->ritornaUrlSerieTv($serieTvModel->indSerieTv), $requestData);
         $response->assertStatus(403);
 
         // TEST Visitor
@@ -211,10 +212,12 @@ class SerieTvControllerTest extends TestCase
         $arrKey = $this->ritornaStrutturaJsonSingolaSerieTv(0);
         $arrKey = SerieTvControllerTest::pulisciArray($arrKey);
         $serieTvModel = SerieTvModel::factory()->create();
-        $requestData = SerieTvModel::factory()->make()->only("titolo");
+        $requestData = SerieTvModel::factory()->make()->toArray();
+        $requestData = Arr::only($requestData, ['titolo']);
         $response = $this->json('PUT', $this->ritornaUrlSerieTv($serieTvModel->indSerieTv), $requestData);
         $response->assertStatus(403);
     }
+
 
     /** @test */
     public function serieTv_update_vuoto_test()

@@ -15,6 +15,7 @@ use App\Models\UserSessionModel;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Gate;
 use Tests\TestCase;
+use Illuminate\Support\Arr;
 
 class FilmControllerTest extends TestCase
 {
@@ -196,12 +197,13 @@ class FilmControllerTest extends TestCase
         $arrKey = $this->ritornaStrutturaJsonSingolaFilm(1);
         $arrKey = FilmControllerTest::pulisciArray($arrKey);
         $filmModel = FilmModel::factory()->create();
-        $requestData = FilmModel::factory()->make()->only("titolo");
-        $response = $this->withHeader('Authorization', 'Bearer' . $token)->json('PUT', $this->ritornaUrlFilm($filmModel->idFilm), $requestData);
+        $requestData = FilmModel::factory()->make()->toArray();
+        $requestData = Arr::only($requestData, ['titolo']);
+        $response = $this->withHeader('Authorization', 'Bearer ' . $token)->json('PUT', $this->ritornaUrlFilm($filmModel->idFilm), $requestData);
         $response->assertStatus(200);
-        $rit = array("titolo"=>$requestData["titolo"]);
+        $rit = ['titolo' => $requestData['titolo']];
         $filmModel->refresh();
-        $rit = array('titolo' => $filmModel['titolo']);
+        $rit = ['titolo' => $filmModel['titolo']];
         $response->assertJson(['data' => $rit]);
 
         // TEST User
@@ -209,8 +211,9 @@ class FilmControllerTest extends TestCase
         $arrKey = $this->ritornaStrutturaJsonSingolaFilm(0);
         $arrKey = FilmControllerTest::pulisciArray($arrKey);
         $filmModel = FilmModel::factory()->create();
-        $requestData = FilmModel::factory()->make()->only("titolo");
-        $response = $this->withHeader('Authorization', 'Bearer' . $token)->json('PUT', $this->ritornaUrlFilm($filmModel->idFilm), $requestData);
+        $requestData = FilmModel::factory()->make()->toArray();
+        $requestData = Arr::only($requestData, ['titolo']);
+        $response = $this->withHeader('Authorization', 'Bearer ' . $token)->json('PUT', $this->ritornaUrlFilm($filmModel->idFilm), $requestData);
         $response->assertStatus(403);
 
         // TEST Visitor
@@ -218,7 +221,8 @@ class FilmControllerTest extends TestCase
         $arrKey = $this->ritornaStrutturaJsonSingolaFilm(0);
         $arrKey = FilmControllerTest::pulisciArray($arrKey);
         $filmModel = FilmModel::factory()->create();
-        $requestData = FilmModel::factory()->make()->only("titolo");
+        $requestData = FilmModel::factory()->make()->toArray();
+        $requestData = Arr::only($requestData, ['titolo']);
         $response = $this->json('PUT', $this->ritornaUrlFilm($filmModel->idFilm), $requestData);
         $response->assertStatus(403);
     }
