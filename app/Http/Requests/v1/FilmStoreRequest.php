@@ -23,7 +23,6 @@ class FilmStoreRequest extends FormRequest
     {
         return [
             "idFilm" => "required|integer",
-            "idCategory" => "required|integer",
             "titolo" => "required|string|max:255",
             "descrizione" => "required|string",
             "durata" => "integer",
