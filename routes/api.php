@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\v1\ConfigurationController;
 use App\Http\Controllers\Api\v1\CreditoController;
 use App\Http\Controllers\Api\v1\FilmController;
 use App\Http\Controllers\Api\v1\IndirizzoController;
+use App\Http\Controllers\Api\v1\LinguaController;
 use App\Http\Controllers\Api\v1\RecapitoController;
 use App\Http\Controllers\Api\v1\NazioneController;
 use App\Http\Controllers\Api\v1\SignController;
@@ -15,6 +16,7 @@ use App\Http\Controllers\Api\v1\UserRoleController;
 use App\Http\Controllers\Api\v1\UserStatusController;
 use App\Http\Controllers\Api\v1\TipoIndirizzoController;
 use App\Http\Controllers\Api\v1\TipoRecapitoController;
+use App\Http\Controllers\Api\v1\TraduzioneController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -73,6 +75,8 @@ Route::get(_VERS . '/testLogin', function () {
 /*********************************************************************************** */
 // FREE ROUTE ADMINISTRATORS - USERCLIENTS - VISITORS
 // API FREE ##########################################àààà##############################
+
+
 Route::get(_VERS . '/signClient/{userClient}/{hash?}', [SignController::class, 'show']);
 Route::get(_VERS . '/searchUserClient/{user}', [SignController::class, 'searchUser']);
 Route::post(_VERS . '/registrazione', [UserClientController::class, 'recordUserClient']);
@@ -85,15 +89,35 @@ Route::get(_VERS . '/userRole/{idUserRole}', [UserRoleController::class, 'show']
 Route::get(_VERS . '/userStatus', [UserStatusController::class, 'index']);
 Route::get(_VERS . '/userStatus/{idUserStatus}', [UserStatusController::class, 'show']);
 
+// COMUNI
 Route::get(_VERS . '/comuniItaliani', [ComuneItalianoController::class, 'index']);
 Route::get(_VERS . '/comuniItaliani/{comune}', [comuneItalianoController::class, 'show']);
+Route::get(_VERS . '/comuniItaliani/provincia/{provincia}', [comuneItalianoController::class, 'indexProvincia']);
+Route::get(_VERS . '/comuniItaliani/regione/{regione}', [comuneItalianoController::class, 'indexRegione']);
+
+//NAZIONI
 Route::get(_VERS . '/nazioni', [NazioneController::class, 'index']);
 Route::get(_VERS . '/nazioni/{nazione}', [NazioneController::class, 'show']);
 Route::get(_VERS . '/nazioni/continente/{continente}', [NazioneController::class, 'indexContinente']);
+
+//TIPOINDIRIZZO
 Route::get(_VERS . '/tipoIndirizzi', [TipoIndirizzoController::class, 'index']);
 Route::get(_VERS . '/tipoIndirizzi/{tipoIndirizzo}', [TipoIndirizzoController::class, 'show']);
+
+//TIPORECAPITO
 Route::get(_VERS . '/tipoRecapiti', [TipoRecapitoController::class, 'index']);
 Route::get(_VERS . '/tipoRecapiti/{idTipoRecapito}', [TipoRecapitoController::class, 'show']);
+
+//LINGUE
+Route::get(_VERS . '/lingue', [LinguaController::class, 'index']);
+Route::get(_VERS . '/lingue/{idLingua}', [LinguaController::class, 'show']);
+
+//TRADUZIONI
+Route::get(_VERS . '/traduzioni', [TraduzioneController::class, 'index']);
+Route::get(_VERS . '/traduzioni/{idTraduzione}', [TraduzioneController::class, 'show']);
+
+//UPLOAD
+Route::get(_VERS . '/upload', [UploadFileController::class, 'index']);
 
 /*********************************************************************************************** */
 // AUTHENTICATION ROUTE USERCLIENTS & ADMISTRATORS
