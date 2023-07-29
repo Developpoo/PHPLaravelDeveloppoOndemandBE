@@ -49,7 +49,8 @@ class DatabaseSeeder extends Seeder
                 FilmAttoreSeeder::class,
                 FilmRegistaSeeder::class,
                 FilmCategorySeeder::class,
-                LinguaSeeder::class
+                LinguaSeeder::class,
+                TraduzioneSeeder::class
             ]
         );
     }

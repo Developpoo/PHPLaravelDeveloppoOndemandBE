@@ -20,4 +20,9 @@ class LinguaModel extends Model
         "locale"
 
     ];
+
+    public function traduzioni()
+    {
+        return $this->hasMany(TraduzioneModel::class, 'idLingua', 'idLingua');
+    }
 }

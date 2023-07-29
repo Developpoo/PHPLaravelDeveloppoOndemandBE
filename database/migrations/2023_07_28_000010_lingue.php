@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id('idLingua');
             $table->string('nome', 45);
             $table->string('abbreviazione', 6);
-            $table->string('locale', 3)->nullable();
+            $table->string('locale', 6)->nullable();
 
             $table->softDeletes();
             $table->timestamps();

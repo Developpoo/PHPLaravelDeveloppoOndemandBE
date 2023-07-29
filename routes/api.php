@@ -76,7 +76,6 @@ Route::get(_VERS . '/testLogin', function () {
 // FREE ROUTE ADMINISTRATORS - USERCLIENTS - VISITORS
 // API FREE ##########################################àààà##############################
 
-
 Route::get(_VERS . '/signClient/{userClient}/{hash?}', [SignController::class, 'show']);
 Route::get(_VERS . '/searchUserClient/{user}', [SignController::class, 'searchUser']);
 Route::post(_VERS . '/registrazione', [UserClientController::class, 'recordUserClient']);
@@ -115,9 +114,10 @@ Route::get(_VERS . '/lingue/{idLingua}', [LinguaController::class, 'show']);
 //TRADUZIONI
 Route::get(_VERS . '/traduzioni', [TraduzioneController::class, 'index']);
 Route::get(_VERS . '/traduzioni/{idTraduzione}', [TraduzioneController::class, 'show']);
+Route::get(_VERS . '/lingue/{idLingua}/traduzioni', [TraduzioneController::class, 'showTraduzioni']);
 
 //UPLOAD
-Route::get(_VERS . '/upload', [UploadFileController::class, 'index']);
+// Route::get(_VERS . '/upload', [UploadFileController::class, 'index']);
 
 /*********************************************************************************************** */
 // AUTHENTICATION ROUTE USERCLIENTS & ADMISTRATORS

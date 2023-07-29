@@ -19,4 +19,9 @@ class TraduzioneModel extends Model
         "chiave",
         "valore"
     ];
+
+    public function lingua()
+    {
+        return $this->belongsTo(LinguaModel::class, 'idLingua', 'idLingua');
+    }
 }
