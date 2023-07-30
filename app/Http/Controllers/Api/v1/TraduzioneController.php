@@ -34,7 +34,7 @@ class TraduzioneController extends Controller
     }
 
     /**
-     * vista tabella traduzioni e lingua
+     * Vista tabella traduzioni e lingua
      * 
      * @param $idLingua
      * @return JsonResource
@@ -45,9 +45,20 @@ class TraduzioneController extends Controller
         // $lingua = LinguaModel::find($idLingua); // se uso questa devo aggiungere un if e poi un else di conseguenza
         $traduzioni = $lingua->traduzioni;
 
+        // Creazione dell'array associativo delle traduzioni
+        $traduzioniArrayAssociativo = [];
+        foreach ($traduzioni as $traduzione) {
+            $traduzioniArrayAssociativo[$traduzione->idTraduzione] = [
+                // 'idTraduzione' => $traduzione->idTraduzione,
+                // 'idLingua' => $traduzione->idLingua,
+                'chiave' => $traduzione->chiave,
+                'valore' => $traduzione->valore
+            ];
+        }
+
         return response()->json([
-            'lingua' => $lingua,
-            'traduzioni' => $traduzioni,
+            // 'lingua' => $lingua,
+            'traduzioni' => $traduzioniArrayAssociativo,
         ]);
     }
 }
