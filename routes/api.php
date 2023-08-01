@@ -17,6 +17,8 @@ use App\Http\Controllers\Api\v1\UserStatusController;
 use App\Http\Controllers\Api\v1\TipoIndirizzoController;
 use App\Http\Controllers\Api\v1\TipoRecapitoController;
 use App\Http\Controllers\Api\v1\TraduzioneController;
+use App\Http\Controllers\Api\v1\TraduzioneCustomController;
+use App\Http\Controllers\Api\v1\UploadFileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -88,6 +90,10 @@ Route::get(_VERS . '/userRole/{idUserRole}', [UserRoleController::class, 'show']
 Route::get(_VERS . '/userStatus', [UserStatusController::class, 'index']);
 Route::get(_VERS . '/userStatus/{idUserStatus}', [UserStatusController::class, 'show']);
 
+// Configuration
+Route::get(_VERS . '/configuration', [ConfigurationController::class, 'index']);
+Route::get(_VERS . '/configuration/{configuration}', [ConfigurationController::class, 'show']);
+
 // COMUNI
 Route::get(_VERS . '/comuniItaliani', [ComuneItalianoController::class, 'index']);
 Route::get(_VERS . '/comuniItaliani/{comune}', [comuneItalianoController::class, 'show']);
@@ -116,8 +122,12 @@ Route::get(_VERS . '/traduzioni', [TraduzioneController::class, 'index']);
 Route::get(_VERS . '/traduzioni/{idTraduzione}', [TraduzioneController::class, 'show']);
 Route::get(_VERS . '/lingue/{idLingua}/traduzioni', [TraduzioneController::class, 'showTraduzioni']);
 
+//TRADUZIONI CUSTOM
+Route::get(_VERS . '/traduzioniCustom', [TraduzioneCustomController::class, 'index']);
+Route::get(_VERS . '/traduzioniCustom/{idTraduzioneCustom}', [TraduzioneCustomController::class, 'show']);
+
 //UPLOAD
-// Route::get(_VERS . '/upload', [UploadFileController::class, 'index']);
+Route::get(_VERS . '/upload', [UploadFileController::class, 'index']);
 
 /*********************************************************************************************** */
 // AUTHENTICATION ROUTE USERCLIENTS & ADMISTRATORS
@@ -165,9 +175,7 @@ Route::middleware(['authentication', 'UserRoleMiddleware:Administrator'])->group
     // USER CLIENT
     Route::get(_VERS . '/userClient', [UserClientController::class, 'index']);
 
-    // Configuration
-    Route::get(_VERS . '/configuration', [ConfigurationController::class, 'index']);
-    Route::get(_VERS . '/configuration/{configuration}', [ConfigurationController::class, 'show']);
+
 
     // Indirizzi
     Route::get(_VERS . '/indirizzi', [IndirizzoController::class, 'index']);

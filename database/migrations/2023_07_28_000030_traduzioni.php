@@ -21,6 +21,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('idLingua')->references('idLingua')->on('lingue');
+            // $table->foreign('chiave')->references('idLingua')->on('lingue');
         });
     }
 

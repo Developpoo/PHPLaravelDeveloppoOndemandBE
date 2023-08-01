@@ -17,14 +17,14 @@ class ConfigurationController extends Controller
      */
     public function index()
     {
-        if (Gate::allows('read')) {
-            if (Gate::allows('Administrator')) {
-                $configuration = ConfigurationModel::all();
-                return new ConfigurationCollection($configuration);
-            } else {
-                abort(403, 'PE_0001');
-            }
-        }
+        //     if (Gate::allows('read')) {
+        //         if (Gate::allows('Administrator')) {
+        $configuration = ConfigurationModel::all();
+        return new ConfigurationCollection($configuration);
+        //     } else {
+        //         abort(403, 'PE_0001');
+        //     }
+        // }
     }
 
     /**
@@ -35,13 +35,13 @@ class ConfigurationController extends Controller
      */
     public function show(ConfigurationModel $configuration)
     {
-        if (Gate::allows('read')) {
-            if (Gate::allows('Administrator')) {
-                $risorsa = new ConfigurationResource($configuration);
-                return $risorsa;
-            } else {
-                abort(403, 'PE_0001');
-            }
-        }
+        // if (Gate::allows('read')) {
+        //     if (Gate::allows('Administrator')) {
+        $risorsa = new ConfigurationResource($configuration);
+        return $risorsa;
+        //     } else {
+        //         abort(403, 'PE_0001');
+        //     }
+        // }
     }
 }

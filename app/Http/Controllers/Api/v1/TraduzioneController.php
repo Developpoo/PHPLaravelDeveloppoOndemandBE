@@ -51,8 +51,9 @@ class TraduzioneController extends Controller
             $traduzioniArrayAssociativo[$traduzione->idTraduzione] = [
                 // 'idTraduzione' => $traduzione->idTraduzione,
                 // 'idLingua' => $traduzione->idLingua,
-                'chiave' => $traduzione->chiave,
-                'valore' => $traduzione->valore
+                //'chiave' => $traduzione->chiave,
+                //'valore' => $traduzione->valore
+                $traduzione->chiave => $traduzione->valore
             ];
         }
 

@@ -18,14 +18,13 @@ class ComuneModel extends Model
         "comune",
         "regione",
         "provincia",
-        // "XXX",
+        "XXX",
         "targa",
-        // "KKK",
-        // "YYY" ,
-        // "MMM",
-        "prefissoTelefonico"
-        // "OOO",
-        // "PPP"
+        "KKK",
+        "YYY",
+        "MMM",
+        "prefissoTelefonico",
+        "OOO",
+        "PPP"
     ];
 }
-
