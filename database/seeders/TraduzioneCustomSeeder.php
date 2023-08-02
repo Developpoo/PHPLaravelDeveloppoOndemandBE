@@ -23,5 +23,9 @@ class TraduzioneCustomSeeder extends Seeder
         //PASSWORD
         TraduzioneCustomModel::create(["idTraduzioneCustom" => 4, "idLingua" => 1, "chiave" => "lbPassword", "valore" => "Password"]);
         TraduzioneCustomModel::create(["idTraduzioneCustom" => 5, "idLingua" => 1, "chiave" => "lbConfermaPassowrd", "valore" => "Conferma Password"]);
+
+
+        //SALUTO
+        TraduzioneCustomModel::create(["idTraduzioneCustom" => 6, "idLingua" => 1, "chiave" => "txtSaluto1", "valore" => "Salve"]);
     }
 }

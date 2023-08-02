@@ -30,7 +30,6 @@ class DatabaseSeeder extends Seeder
                 NazioneSeeder::class,
                 UserRoleSeeder::class,
                 ComuneSeeder::class,
-                CategorySeeder::class,
                 IndirizzoSeeder::class,
                 UserAbilitySeeder::class,
                 UserAuthSeeder::class,
@@ -48,10 +47,11 @@ class DatabaseSeeder extends Seeder
                 RegistaSeeder::class,
                 FilmAttoreSeeder::class,
                 FilmRegistaSeeder::class,
-                FilmCategorySeeder::class,
                 LinguaSeeder::class,
                 TraduzioneSeeder::class,
-                TraduzioneCustomSeeder::class
+                TraduzioneCustomSeeder::class,
+                CategorySeeder::class,
+                FilmCategorySeeder::class,
             ]
         );
     }

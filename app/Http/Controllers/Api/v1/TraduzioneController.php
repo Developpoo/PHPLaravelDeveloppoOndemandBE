@@ -48,13 +48,14 @@ class TraduzioneController extends Controller
         // Creazione dell'array associativo delle traduzioni
         $traduzioniArrayAssociativo = [];
         foreach ($traduzioni as $traduzione) {
-            $traduzioniArrayAssociativo[$traduzione->idTraduzione] = [
-                // 'idTraduzione' => $traduzione->idTraduzione,
-                // 'idLingua' => $traduzione->idLingua,
-                //'chiave' => $traduzione->chiave,
-                //'valore' => $traduzione->valore
-                $traduzione->chiave => $traduzione->valore
-            ];
+            $traduzioniArrayAssociativo[$traduzione->chiave] = $traduzione->valore;
+            // = [
+            // 'idTraduzione' => $traduzione->idTraduzione,
+            // 'idLingua' => $traduzione->idLingua,
+            //'chiave' => $traduzione->chiave,
+            //'valore' => $traduzione->valore
+            //     $traduzione->chiave => $traduzione->valore
+            // ];
         }
 
         return response()->json([

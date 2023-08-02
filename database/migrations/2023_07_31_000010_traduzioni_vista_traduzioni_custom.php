@@ -13,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         DB::statement("
-        CREATE VIEW traduzioniVistaCustom AS
+        CREATE VIEW vistaTraduzioni AS
         SELECT 
         `traduzioni`.`idLingua` AS `idLingua`,`traduzioni`.`chiave` AS `chiave`,
         if(`traduzioniCustom`.`valore` IS NULL,`traduzioni`.`valore`,`traduzioniCustom`.`valore`) AS `valore`
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        DB::statement('Traduzioni_vista_traduzioni_custom');
+        DB::statement('vistaTraduzioni');
     }
 };
