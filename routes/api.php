@@ -175,8 +175,6 @@ Route::middleware(['authentication', 'UserRoleMiddleware:Administrator'])->group
     // USER CLIENT
     Route::get(_VERS . '/userClient', [UserClientController::class, 'index']);
 
-
-
     // Indirizzi
     Route::get(_VERS . '/indirizzi', [IndirizzoController::class, 'index']);
 
