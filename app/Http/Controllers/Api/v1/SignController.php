@@ -154,7 +154,8 @@ class SignController extends Controller
 
     protected static function controlUserClient($userClient)
     {
-        $salt = hash("sha512", trim(Str::random(200)));
+        // $salt = hash("sha512", trim(Str::random(200)));
+        $salt = hash("sha512", trim("Ciao"));
         if (UserAuthModel::existUserClientValidForLogin($userClient)) {
             //exist
             $auth = UserAuthModel::where("user", $userClient)->first();
@@ -197,6 +198,7 @@ class SignController extends Controller
                     $salt = $recordPassword->salt;
                     $passwordHiddenDB = AppHelpers::hiddenPassword($password, $salt);
                     // $passwordClient = AppHelpers::decryptedPassword($hashSalePsw, $secretJWT);
+                    echo "<br><br><br><br><br><br><br>psw1: " . $hashSalePsw . "<br> psw2: " . $passwordHiddenDB;
                     if ($hashSalePsw == $passwordHiddenDB) {
                         $token = AppHelpers::createTokenSession($auth->idUserClient, $secretJWT);
                         echo "TOKEN: " . $token . "<br>";
@@ -210,7 +212,7 @@ class SignController extends Controller
                         return AppHelpers::answerCustom($data);
                     } else {
                         UserAccessModel::updateAttempFailed($auth->idUserClient);
-                        abort(403, "Error L004");
+                        abort(403, "Error L004 <br>" . $hashSalePsw . " <br>" . $passwordHiddenDB);
                     }
                 } else {
                     abort(403, "Error L003");

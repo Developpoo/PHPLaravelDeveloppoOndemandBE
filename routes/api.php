@@ -66,8 +66,8 @@ Route::get(_VERS . '/test-authentication', function (Request $request) {
 
 Route::get(_VERS . '/testLogin', function () {
     $hashUser = "d3d05637c6f66919b002c215dbec2a40f703fe0e4109bc27be2a6ce50dea57a3c308cfa5124f704b5e8fe0059d29d4f0af7ebfbaf80906c6be554636bc6b1952";
-    $pwd = "09b261daf5046d0eaac1648b77cb1fb571e8f4702a8b19a436f73f5aead8d754b3ab2fa12dc9bf31e91f0035188a82d5ba2be2fd15ceec67c34125a7d9d92015";
-    $salt = "a2468577e7d248dd922d79fdbc0b026fb096d706dfd4eb73a781974235ba3fc86027e262695c2c2c0f90c9df354fbe4f10feb19f9bb616cb303a1e2d41820ce4";
+    $pwd = "411fe146b5f5418be1b978b41aa37322f6c89bce93d4ae6e66a11df5f66936b1efbdbad5d04f5eda43e602a86c2f60ed38b67ed364d5066af32d117827fcffa8";
+    $salt = "2e3fce77cf8c4c7478a96d207c1c39715892cac84a18cbec9b634f4bc22b390b48cd30a4df2e7ebbaee65c346a662c5be2d12441322f7a4bac821a382c4af091";
 
     $hashSalePsw = AppHelpers::hiddenPassword($pwd, $salt);
 

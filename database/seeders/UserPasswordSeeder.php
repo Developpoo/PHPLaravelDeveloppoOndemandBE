@@ -16,22 +16,15 @@ class UserPasswordSeeder extends Seeder
         UserPasswordModel::create([
             "idUserPassword" => 1,
             "idUserClient" => 1,
-            "password" => hash("sha512", trim("800A")),
+            "password" => hash("sha512", trim("800AAA")),
             "salt" => hash("sha512", trim("salt"))
         ]);
 
         UserPasswordModel::create([
             "idUserPassword" => 2,
             "idUserClient" => 2,
-            "password" => hash("sha512", trim("800A")),
+            "password" => hash("sha512", trim("800AAA")),
             "salt" => hash("sha512", trim("salt"))
         ]);
     }
 }
-
-
-// [
-
-//     "psw" => hash("sha512", trim("Password")),
-//     "sale" => hash("sha512", trim("Sale"))
-// ]
