@@ -58,34 +58,34 @@ class SignController extends Controller
      */
     public static function testToken()
     {
-        $userClient = hash("sha512", trim("Admin@UserClient"));
-        $password = hash("sha512", trim("Password123!"));
-        $salt = hash("sha512", trim("Salt"));
-        $challenge = hash("sha512", trim("Challenge"));
-        $secretJWT = hash("sha512", trim("Secret"));
-        $auth = UserAuthModel::where('user', $userClient)->firstOrFail();
-        if ($auth != null) {
-            $auth->challengeStart = time();
-            // $auth->challenge = $challenge;
-            $auth->secretJWT = $secretJWT;
-            $auth->save();
+        // $userClient = hash("sha512", trim("Admin@UserClient"));
+        // $password = hash("sha512", trim("Password123!"));
+        // $salt = hash("sha512", trim("Ciao"));
+        // $challenge = hash("sha512", trim("Challenge"));
+        // $secretJWT = hash("sha512", trim("Secret"));
+        // $auth = UserAuthModel::where('user', $userClient)->firstOrFail();
+        // if ($auth != null) {
+        //     $auth->challengeStart = time();
+        //     // $auth->challenge = $challenge;
+        //     $auth->secretJWT = $secretJWT;
+        //     $auth->save();
 
-            $recordPassword = UserPasswordModel::passwordNew($auth->idUserClient);
-            if ($recordPassword != null) {
-                $recordPassword->salt = $salt;
-                $recordPassword->password = $password;
-                $recordPassword->save();
-                // $cipher = AppHelpers::hiddenPassword($password. $salt, $challenge);
-                $cipher = AppHelpers::hiddenPassword($password, $salt);
-                $token = AppHelpers::createTokenSession($auth->idUserClient, $secretJWT);
-                $data = array("token" => $token, "xLogin" => $cipher);
-                $session = UserSessionModel::where("idUserClient", $auth->idUserClient)->firstOrFail();
-                $session->token->$token;
-                $session->sessionStart = time();
-                $session->save();
-                return AppHelpers::answerCustom($data);
-            }
-        }
+        //     $recordPassword = UserPasswordModel::passwordNew($auth->idUserClient);
+        //     if ($recordPassword != null) {
+        //         $recordPassword->salt = $salt;
+        //         $recordPassword->password = $password;
+        //         $recordPassword->save();
+        //         // $cipher = AppHelpers::hiddenPassword($password. $salt, $challenge);
+        //         $cipher = AppHelpers::hiddenPassword($password, $salt);
+        //         $token = AppHelpers::createTokenSession($auth->idUserClient, $secretJWT);
+        //         $data = array("token" => $token, "xLogin" => $cipher);
+        //         $session = UserSessionModel::where("idUserClient", $auth->idUserClient)->firstOrFail();
+        //         $session->token->$token;
+        //         $session->sessionStart = time();
+        //         $session->save();
+        //         return AppHelpers::answerCustom($data);
+        //     }
+        // }
     }
 
     /**

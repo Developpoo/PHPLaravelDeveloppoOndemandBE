@@ -32,5 +32,15 @@ class UserAuthSeeder extends Seeder
             "challengeStart" => time(),
             "mustChange" => 3
         ]);
+
+        UserAuthModel::create([
+            "idUserAuth" => 3,
+            "idUserClient" => 3,
+            "user" => hash("sha512", trim("juba.kem@gmail.com")),
+            "challenge" => hash("sha512", trim("Sfida")),
+            "secretJWT" => hash("sha512", trim("Secret")),
+            "challengeStart" => time(),
+            "mustChange" => 3
+        ]);
     }
 }

@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('nazioneNascita')->nullable();
             $table->string('provinciaNascita', 255)->nullable();
             $table->date('dataNascita')->nullable();
+            $table->tinyInteger('accettaTermini')->default(0);
             $table->tinyInteger('archived')->default(0);
             $table->string('created_by', 255)->nullable();
             $table->string('update_by', 255)->nullable();

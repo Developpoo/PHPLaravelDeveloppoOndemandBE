@@ -45,34 +45,34 @@ if (!defined('_VERS')) {
 /*********************************************************************************** */
 // FREE ROUTE PER IL CONTROLLO DEL CODICE E LA PRODUZIONE DEL TOKEN
 
-Route::get(_VERS . '/verify-token', function () {
-    $token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3d3dy5kZXZlbG9wcG9vbmRlbWFuZC5jb20iLCJhdWQiOm51bGwsImlhdCI6MTY4NjEzNzg0NCwibmJmIjoxNjg2MTM3ODQ0LCJleHAiOjE2ODc0MzM4NDQsImRhdGEiOnsiaWRVc2VyQ2xpZW50IjoxLCJpZFVzZXJTdGF0dXMiOjEsImlkVXNlclJvbGUiOjEsImFiaWxpdHkiOlsxLDIsMyw0XSwibm9tZSI6IkZhbmdvIEZhbmdoaSJ9fQ.ah3lVNdRkfh1DQFJWNZddt4JXsfQaBD1iQ0XFrRfJR4";
-    $result = \App\Http\Controllers\Api\v1\SignController::verifyToken($token);
+// Route::get(_VERS . '/verify-token', function () {
+//     $token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3d3dy5kZXZlbG9wcG9vbmRlbWFuZC5jb20iLCJhdWQiOm51bGwsImlhdCI6MTY4NjEzNzg0NCwibmJmIjoxNjg2MTM3ODQ0LCJleHAiOjE2ODc0MzM4NDQsImRhdGEiOnsiaWRVc2VyQ2xpZW50IjoxLCJpZFVzZXJTdGF0dXMiOjEsImlkVXNlclJvbGUiOjEsImFiaWxpdHkiOlsxLDIsMyw0XSwibm9tZSI6IkZhbmdvIEZhbmdoaSJ9fQ.ah3lVNdRkfh1DQFJWNZddt4JXsfQaBD1iQ0XFrRfJR4";
+//     $result = \App\Http\Controllers\Api\v1\SignController::verifyToken($token);
 
-    echo "Risultato: ";
-    print_r($result);
-});
+//     echo "Risultato: ";
+//     print_r($result);
+// });
 
-Route::get(_VERS . '/test-authentication', function (Request $request) {
-    // Esegui il middleware di autenticazione
-    $middleware = new \App\Http\Middleware\Authentication();
-    $response = $middleware->handle($request, function ($request) {
-        return response('funziona!');
-    });
+// Route::get(_VERS . '/test-authentication', function (Request $request) {
+//     // Esegui il middleware di autenticazione
+//     $middleware = new \App\Http\Middleware\Authentication();
+//     $response = $middleware->handle($request, function ($request) {
+//         return response('funziona!');
+//     });
 
-    // Restituisci la risposta del middleware
-    return $response;
-});
+//     // Restituisci la risposta del middleware
+//     return $response;
+// });
 
-Route::get(_VERS . '/testLogin', function () {
-    $hashUser = "d3d05637c6f66919b002c215dbec2a40f703fe0e4109bc27be2a6ce50dea57a3c308cfa5124f704b5e8fe0059d29d4f0af7ebfbaf80906c6be554636bc6b1952";
-    $pwd = "411fe146b5f5418be1b978b41aa37322f6c89bce93d4ae6e66a11df5f66936b1efbdbad5d04f5eda43e602a86c2f60ed38b67ed364d5066af32d117827fcffa8";
-    $salt = "2e3fce77cf8c4c7478a96d207c1c39715892cac84a18cbec9b634f4bc22b390b48cd30a4df2e7ebbaee65c346a662c5be2d12441322f7a4bac821a382c4af091";
+// Route::get(_VERS . '/testLogin', function () {
+//     $hashUser = "d3d05637c6f66919b002c215dbec2a40f703fe0e4109bc27be2a6ce50dea57a3c308cfa5124f704b5e8fe0059d29d4f0af7ebfbaf80906c6be554636bc6b1952";
+//     $pwd = "411fe146b5f5418be1b978b41aa37322f6c89bce93d4ae6e66a11df5f66936b1efbdbad5d04f5eda43e602a86c2f60ed38b67ed364d5066af32d117827fcffa8";
+//     $salt = "f76788fdccc7410c974d18cd3c38fad74fe513cefa92199e0aeab1abf90d571467117eeb00df7045ce73b32439db43800addc547e10365f65f682626f297de47";
 
-    $hashSalePsw = AppHelpers::hiddenPassword($pwd, $salt);
+//     $hashSalePsw = AppHelpers::hiddenPassword($pwd, $salt);
 
-    SignController::testLogin($hashUser, $hashSalePsw);
-});
+//     SignController::testLogin($hashUser, $hashSalePsw);
+// });
 
 /*********************************************************************************** */
 // FREE ROUTE ADMINISTRATORS - USERCLIENTS - VISITORS

@@ -27,6 +27,7 @@ class UserClientSeeder extends Seeder
             "provinciaNascita" => hash("sha512", trim("Fango Town")),
             "cittaNascita" => hash("sha512", trim("Palermo")),
             "dataNascita" => "1977-04-12",
+            "accettaTermini" => 1,
             "archived" => 0,
             "created_by" =>  hash("sha512", trim("FangoFanghi")),
             "update_by" => hash("sha512", trim("FangoFanghi"))
@@ -46,6 +47,27 @@ class UserClientSeeder extends Seeder
             "provinciaNascita" => hash("sha512", trim("Fango Town")),
             "cittaNascita" => hash("sha512", trim("Palermo")),
             "dataNascita" => "1985-09-23",
+            "accettaTermini" => 1,
+            "archived" => 0,
+            "created_by" =>  hash("sha512", trim("FangoFanghi")),
+            "update_by" => hash("sha512", trim("FangoFanghi"))
+        ]);
+
+        UserClientModel::create([
+            "idUserClient" => 3,
+            "idUserStatus" => 1,
+            "nome" => "Angelo",
+            "cognome" => "Zammataro",
+            "sesso" => 1,
+            "codiceFiscale" =>  null,
+            "partitaIva" => null,
+            "idNazioneNascita" => 1,
+            "cittadinanza" =>  null,
+            "nazioneNascita" => null,
+            "provinciaNascita" => null,
+            "cittaNascita" => null,
+            "dataNascita" => null,
+            "accettaTermini" => 1,
             "archived" => 0,
             "created_by" =>  hash("sha512", trim("FangoFanghi")),
             "update_by" => hash("sha512", trim("FangoFanghi"))
