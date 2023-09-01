@@ -16,27 +16,7 @@ class UserAuthSeeder extends Seeder
         UserAuthModel::create([
             "idUserAuth" => 1,
             "idUserClient" => 1,
-            "user" => hash("sha512", trim("fangofanghi@fangoweb.it")),
-            "challenge" => hash("sha512", trim("Sfida")),
-            "secretJWT" => hash("sha512", trim("Secret")),
-            "challengeStart" => time(),
-            "mustChange" => 3
-        ]);
-
-        UserAuthModel::create([
-            "idUserAuth" => 2,
-            "idUserClient" => 2,
-            "user" => hash("sha512", trim("fangafanghi@fangoweb.it")),
-            "challenge" => hash("sha512", trim("Sfida")),
-            "secretJWT" => hash("sha512", trim("Secret")),
-            "challengeStart" => time(),
-            "mustChange" => 3
-        ]);
-
-        UserAuthModel::create([
-            "idUserAuth" => 3,
-            "idUserClient" => 3,
-            "user" => hash("sha512", trim("juba.kem@gmail.com")),
+            "user" => hash("sha512", trim("xalessiodannax@gmail.com")),
             "challenge" => hash("sha512", trim("Sfida")),
             "secretJWT" => hash("sha512", trim("Secret")),
             "challengeStart" => time(),

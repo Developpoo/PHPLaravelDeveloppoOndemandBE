@@ -13,12 +13,15 @@ return new class extends Migration
     {
         Schema::create('lingue', function (Blueprint $table) {
             $table->id('idLingua');
+            $table->unsignedBigInteger('idUserClient');
             $table->string('nome', 45);
             $table->string('abbreviazione', 6);
             $table->string('locale', 6)->nullable();
 
             $table->softDeletes();
             $table->timestamps();
+
+            $table->foreign('idUserClient')->references('idUserClient')->on('userClient');
         });
     }
 

@@ -17,14 +17,6 @@ class UserClientRoleSeeder extends Seeder
             "id" => 1,
             "idUserClient" => 1,
             "idUserRole" => 1
-
-        ]);
-
-        UserClientRoleModel::create([
-            "id" => 2,
-            "idUserClient" => 2,
-            "idUserRole" => 2
-
         ]);
     }
 }

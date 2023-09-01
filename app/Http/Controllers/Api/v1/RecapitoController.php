@@ -45,13 +45,13 @@ class RecapitoController extends Controller
      */
     public function store(RecapitoStoreRequest $request)
     {
-        if (Gate::allows('create')) {
-            $dati = $request->validated();
-            $idRecapito = RecapitoModel::create($dati);
-            return new RecapitoResource($idRecapito);
-        } else {
-            abort(403, 'PE_0006');
-        }
+        // if (Gate::allows('create')) {
+        $dati = $request->validated();
+        $idRecapito = RecapitoModel::create($dati);
+        return new RecapitoResource($idRecapito);
+        // } else {
+        //     abort(403, 'PE_0006');
+        // }
     }
 
     /**

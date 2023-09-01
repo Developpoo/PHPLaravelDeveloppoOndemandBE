@@ -14,16 +14,14 @@ return new class extends Migration
         Schema::create('userClient', function (Blueprint $table) {
             $table->id('idUserClient');
             $table->unsignedBigInteger('idUserStatus');
+            $table->unsignedBigInteger('idLingua');
             $table->string('nome', 45)->nullable();
             $table->string('cognome', 45);
-            $table->unsignedTinyInteger('sesso')->nullable()->default(0);
+            $table->unsignedTinyInteger('sesso')->nullable()->default(2);
             $table->string('codiceFiscale')->nullable();
-            $table->string('partitaIva')->nullable();
-            $table->string('cittadinanza', 255)->nullable();
-            $table->unsignedBigInteger('idNazioneNascita')->nullable();
-            $table->string('cittaNascita', 255)->nullable();
-            $table->string('nazioneNascita')->nullable();
-            $table->string('provinciaNascita', 255)->nullable();
+            $table->unsignedBigInteger('idNazione')->nullable();
+            $table->string('regione', 255)->nullable();
+            $table->unsignedBigInteger('idComune')->nullable();
             $table->date('dataNascita')->nullable();
             $table->tinyInteger('accettaTermini')->default(0);
             $table->tinyInteger('archived')->default(0);

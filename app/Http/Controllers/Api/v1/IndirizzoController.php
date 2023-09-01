@@ -45,13 +45,13 @@ class IndirizzoController extends Controller
      */
     public function store(IndirizzoStoreRequest $request)
     {
-        if (Gate::allows('create')) {
-            $dati = $request->validated();
-            $idIndirizzo = IndirizzoModel::create($dati);
-            return new IndirizzoResource($idIndirizzo);
-        } else {
-            abort(403, 'PE_0006');
-        }
+        // if (Gate::allows('create')) {
+        $dati = $request->validated();
+        $idIndirizzo = IndirizzoModel::create($dati);
+        return new IndirizzoResource($idIndirizzo);
+        // } else {
+        //     abort(403, 'PE_0006');
+        // }
     }
 
     /**

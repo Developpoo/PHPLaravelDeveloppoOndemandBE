@@ -16,61 +16,19 @@ class UserClientSeeder extends Seeder
         UserClientModel::create([
             "idUserClient" => 1,
             "idUserStatus" => 1,
-            "nome" => "Fango",
-            "cognome" => "Fanghi",
+            "idLingua" => 1,
+            "nome" => "Alessio",
+            "cognome" => "D'Anna",
             "sesso" => 0,
-            "codiceFiscale" =>  hash("sha512", trim("FNGFNG77D12G273N")),
-            "partitaIva" => null,
-            "idNazioneNascita" => 1,
-            "cittadinanza" =>  hash("sha512", trim("Fanga")),
-            "nazioneNascita" => hash("sha512", trim("Fango Land")),
-            "provinciaNascita" => hash("sha512", trim("Fango Town")),
-            "cittaNascita" => hash("sha512", trim("Palermo")),
+            "codiceFiscale" =>  hash("sha512", trim("DNNLSS77D12G273N")),
+            "idNazione" => 1,
+            "regione" =>  hash("sha512", trim("Fanga")),
+            "idComune" => 7291,
             "dataNascita" => "1977-04-12",
             "accettaTermini" => 1,
             "archived" => 0,
-            "created_by" =>  hash("sha512", trim("FangoFanghi")),
-            "update_by" => hash("sha512", trim("FangoFanghi"))
-        ]);
-
-        UserClientModel::create([
-            "idUserClient" => 2,
-            "idUserStatus" => 2,
-            "nome" => "Fanga",
-            "cognome" => "Fanghi",
-            "sesso" => 1,
-            "codiceFiscale" =>  hash("sha512", trim("FNGFNG85I23G273H")),
-            "partitaIva" => null,
-            "idNazioneNascita" => 1,
-            "cittadinanza" =>  hash("sha512", trim("Fanga")),
-            "nazioneNascita" => hash("sha512", trim("Fango Land")),
-            "provinciaNascita" => hash("sha512", trim("Fango Town")),
-            "cittaNascita" => hash("sha512", trim("Palermo")),
-            "dataNascita" => "1985-09-23",
-            "accettaTermini" => 1,
-            "archived" => 0,
-            "created_by" =>  hash("sha512", trim("FangoFanghi")),
-            "update_by" => hash("sha512", trim("FangoFanghi"))
-        ]);
-
-        UserClientModel::create([
-            "idUserClient" => 3,
-            "idUserStatus" => 1,
-            "nome" => "Angelo",
-            "cognome" => "Zammataro",
-            "sesso" => 1,
-            "codiceFiscale" =>  null,
-            "partitaIva" => null,
-            "idNazioneNascita" => 1,
-            "cittadinanza" =>  null,
-            "nazioneNascita" => null,
-            "provinciaNascita" => null,
-            "cittaNascita" => null,
-            "dataNascita" => null,
-            "accettaTermini" => 1,
-            "archived" => 0,
-            "created_by" =>  hash("sha512", trim("FangoFanghi")),
-            "update_by" => hash("sha512", trim("FangoFanghi"))
+            "created_by" => null,
+            "update_by" => null
         ]);
     }
 }

@@ -90,7 +90,7 @@ Route::get(_VERS . '/userRole/{idUserRole}', [UserRoleController::class, 'show']
 Route::get(_VERS . '/userStatus', [UserStatusController::class, 'index']);
 Route::get(_VERS . '/userStatus/{idUserStatus}', [UserStatusController::class, 'show']);
 
-// Configuration
+// CONFIGURATION
 Route::get(_VERS . '/configuration', [ConfigurationController::class, 'index']);
 Route::get(_VERS . '/configuration/{configuration}', [ConfigurationController::class, 'show']);
 
@@ -129,6 +129,17 @@ Route::get(_VERS . '/traduzioniCustom/{idTraduzioneCustom}', [TraduzioneCustomCo
 //UPLOAD
 Route::get(_VERS . '/upload', [UploadFileController::class, 'index']);
 
+//USERAUTH
+
+//USERPASSWORD
+
+//INDIRIZZI
+Route::post(_VERS . '/indirizzi', [IndirizzoController::class, 'store']);
+
+//RECAPITI
+Route::post(_VERS . '/recapiti', [RecapitoController::class, 'store']);
+
+
 /*********************************************************************************************** */
 // AUTHENTICATION ROUTE USERCLIENTS & ADMISTRATORS
 
@@ -143,13 +154,11 @@ Route::middleware(['authentication', 'UserRoleMiddleware:Administrator,UserClien
     // Indirizzi
     Route::get(_VERS . '/indirizzi/{idIndirizzo}', [IndirizzoController::class, 'show']);
     Route::put(_VERS . '/indirizzi/{idIndirizzo}', [IndirizzoController::class, 'update']);
-    Route::post(_VERS . '/indirizzi', [IndirizzoController::class, 'store']);
     Route::delete(_VERS . '/indirizzi/{idIndirizzo}', [IndirizzoController::class, 'destroy']);
 
     // Recapiti
     Route::get(_VERS . '/recapiti/{idRecapito}', [RecapitoController::class, 'show']);
     Route::put(_VERS . '/recapiti/{idRecapito}', [RecapitoController::class, 'update']);
-    Route::post(_VERS . '/recapiti', [RecapitoController::class, 'store']);
     Route::delete(_VERS . '/recapiti/{idRecapito}', [RecapitoController::class, 'destroy']);
 
     // CREDITO

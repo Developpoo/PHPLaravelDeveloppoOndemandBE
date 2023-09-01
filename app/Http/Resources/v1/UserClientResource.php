@@ -18,26 +18,26 @@ class UserClientResource extends JsonResource
         return $this->getCampi();
     }
 
-        // PROTECTED
+    // PROTECTED
     // Funzione che serve a non visualizzare tutti i campi che mi richiamo in modo protected per sostituire return parent::toArray($request); che altrimenti mi avrebbe
     // mostrato sempre tutti i campi della tabella
 
-    protected function getCampi() 
+    protected function getCampi()
     {
         return [
             'idUserClient' => $this->idUserClient,
             'idUserStatus' => $this->idUserStatus,
-            // 'idUserLivel' => $this->idUserLivel,
+            'idLingua' => $this->idLingua,
             'nome' => $this->nome,
             'cognome' => $this->cognome,
             'sesso' => $this->sesso,
             'codiceFiscale' => $this->codiceFiscale,
-            'partitaIva' => $this->partitaIva,
-            'cittadinanza' => $this->cittadinanza,
-            'idNazioneNascita' => $this->idNazioneNascita,
-            'cittaNascita' => $this->cittaNascita,
-            'provinciaNascita' => $this->provinciaNascita,
-            'dataNascita' => $this->dataNascita
+            'idNazione' => $this->idNazione,
+            'regione' => $this->regione,
+            'idComune' => $this->idComune,
+            'dataNascita' => $this->dataNascita,
+            'accettaTermini' => $this->accettaTermini,
+            'archived' => $this->archived
         ];
     }
 }
