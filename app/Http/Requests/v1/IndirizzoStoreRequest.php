@@ -27,9 +27,7 @@ class IndirizzoStoreRequest extends FormRequest
             "idNazione" => "required|integer",
             "idComune" => "integer",
             "indirizzo" => "required|string|max:255",
-            "civico" => "required|string|max:15",
             "cap" => "string|max:15",
-            "localita" => "string|max:255",
             "preferito" => "integer"
 
         ];

@@ -14,14 +14,13 @@ class IndirizzoModel extends Model
     protected $primaryKey = "idIndirizzo";
 
     protected $fillable = [
+        "idIndirizzo",
         "idUserClient",
         "idTipoIndirizzo",
         "idComune",
         "idNazione",
         "indirizzo",
-        "civico",
         "cap",
-        "localita",
         "preferito"
     ];
 

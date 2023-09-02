@@ -19,9 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('idComune');
             $table->string('cap', 15)->nullable();
             $table->string('indirizzo', 255);
-            $table->string('civico', 15)->nullable();
-            $table->string('localita', 255)->nullable();
-            $table->integer('preferito')->unsigned();
+            $table->integer('preferito')->unsigned()->default(0);
             $table->softDeletes();
             $table->timestamps();
 

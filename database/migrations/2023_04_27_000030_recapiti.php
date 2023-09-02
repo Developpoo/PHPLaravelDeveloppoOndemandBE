@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('idUserClient');
             $table->unsignedBigInteger('idTipoRecapito');
             $table->string('recapito', 255)->nullable();
-            $table->integer('preferito')->unsigned();
+            $table->integer('preferito')->unsigned()->default(0);
 
 
 
