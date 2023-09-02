@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\v1;
 
+use App\Helpers\AppHelpers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\v1\UserClientStoreRequest;
 use App\Http\Requests\v1\UserClientUpdateRequest;
@@ -9,10 +10,16 @@ use App\Http\Resources\v1\CreditoResource;
 use App\Http\Resources\v1\UserClientCollection;
 use App\Http\Resources\v1\UserClientResource;
 use App\Models\CreditoModel;
+use App\Models\IndirizzoModel;
+use App\Models\RecapitoModel;
+use App\Models\UserAuthModel;
 use App\Models\UserClientModel;
+use App\Models\UserClientRoleModel;
+use App\Models\UserPasswordModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\DB;
 
 class UserClientController extends Controller
 {
@@ -105,9 +112,104 @@ class UserClientController extends Controller
     public function recordUserClient(UserClientStoreRequest $request)
     {
         $dati = $request->validated();
-        $userClient = UserClientModel::create($dati);
-        return new UserClientResource($userClient);
+
+        $result = DB::transaction(function () use ($request, $dati) {
+            $userClient = UserClientModel::create($dati);
+
+            UserAuthModel::create([
+                $hashUser = hash("sha512", trim($request->user)),
+                'idUserClient' => $userClient->idUserClient,
+                'user' => $hashUser,
+                'challenge' =>  hash("sha512", trim("Ciao")),
+                'secretJWT' => hash("sha512", trim("Secret")),
+                'challengeStart' => time()
+            ]);
+
+            UserPasswordModel::create([
+                $hashPassword = hash("sha512", trim($request->password)),
+                'idUserClient' => $userClient->idUserClient,
+                'password' => $hashPassword,
+                'salt' => hash("sha512", trim(random_bytes(32)))
+            ]);
+
+            UserClientRoleModel::create([
+                'idUserClient' => $userClient->idUserClient,
+                'idUserRole' => 2
+            ]);
+
+            IndirizzoModel::create([
+                'idUserClient' => $userClient->idUserClient,
+                "idTipoIndirizzo" => $request->idTipoIndirizzo,
+                "idNazione" => $request->idNazione,
+                "idComune" => $request->idComune,
+                "indirizzo" => $request->indirizzo,
+                "cap"  => $request->cap,
+                "preferito" => 0
+            ]);
+
+            RecapitoModel::create([
+                "idRecapito" => $request->idTipoRecapito,
+                "idUserClient" => $userClient->idUserClient,
+                "idTipoRecapito" => $request->idTipoRecapito,
+                "recapito" => $request->recapito,
+                "preferito" => 0
+            ]);
+
+            return $userClient;
+        });
+
+        return new UserClientResource($result);
     }
+
+    // public function recordUserClient(UserClientStoreRequest $request)
+    // {
+    //     $dati = $request->validated();
+
+    //     $result = DB::transaction(function () use ($request, $dati) {
+    //         $userClient = UserClientModel::create($dati);
+
+    //         UserAuthModel::create([
+    //             'idUserClient' => $userClient->idUserClient,
+    //             'user' => hash("sha512", trim($dati['user'])),
+    //             'challenge' =>  hash("sha512", trim("Ciao")),
+    //             'secretJWT' => hash("sha512", trim("Secret")),
+    //             'challengeStart' => time()
+    //         ]);
+
+    //         UserPasswordModel::create([
+    //             'idUserClient' => $userClient->idUserClient,
+    //             'password' => hash("sha512", trim($dati['password'])),
+    //             'salt' => hash("sha512", trim(random_bytes(32)))
+    //         ]);
+
+    //         UserClientRoleModel::create([
+    //             'idUserClient' => $userClient->idUserClient,
+    //             'idUserRole' => 2
+    //         ]);
+
+    //         IndirizzoModel::create([
+    //             'idUserClient' => $userClient->idUserClient,
+    //             'idTipoIndirizzo' => $dati['idTipoIndirizzo'],
+    //             'idNazione' => $dati['idNazione'],
+    //             'idComune' => $dati['idComune'],
+    //             'indirizzo' => $dati['indirizzo'],
+    //             'cap' => $dati['cap'],
+    //             'preferito' => 0
+    //         ]);
+
+    //         RecapitoModel::create([
+    //             'idUserClient' => $userClient->idUserClient,
+    //             'idTipoRecapito' => $dati['idTipoRecapito'],
+    //             'recapito' => $dati['recapito'],
+    //             'preferito' => 0
+    //         ]);
+
+    //         return $userClient;
+    //     });
+
+    //     return new UserClientResource($result);
+    // }
+
 
     // ----------------------------------------------------------------------------------------------------------
     /**
