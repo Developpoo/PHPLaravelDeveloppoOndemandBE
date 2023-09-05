@@ -26,7 +26,7 @@ class UserStatusResource extends JsonResource
     {
         return [
             'idUserStatus' => $this->idUserStatus,
-            // 'idUserClient' => $this->idUserClient,
+            'idUserClient' => $this->idUserClient,
             'nome' => $this->nome
         ];
     }

@@ -23,7 +23,6 @@ class UserStatusStoreRequest extends FormRequest
     {
         return [
             'idUserStatus' => 'required|integer',
-            'idUserClient' => 'required|integer',
             'nome' => 'required|string|max:45'
         ];
     }

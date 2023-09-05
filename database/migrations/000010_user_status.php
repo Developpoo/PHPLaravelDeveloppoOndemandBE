@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('userStatus', function (Blueprint $table) {
             $table->id('idUserStatus');
-            $table->unsignedBigInteger('idUserClient');
             $table->string('nome', 45);
 
             $table->softDeletes();

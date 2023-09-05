@@ -17,7 +17,8 @@ class ComuneItalianoController extends Controller
      */
     public function index()
     {
-        $comune = ComuneModel::all();
+        $comune = ComuneModel::all()->sortBy('comune');
+        // $comune = ComuneModel::orderBy('comune')->get(); //uguale sopra
         return new ComuneCollection($comune);
     }
 

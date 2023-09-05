@@ -16,6 +16,7 @@ use App\Models\UserAuthModel;
 use App\Models\UserClientModel;
 use App\Models\UserClientRoleModel;
 use App\Models\UserPasswordModel;
+use App\Models\UserStatusModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -137,9 +138,10 @@ class UserClientController extends Controller
                 'idUserRole' => 2
             ]);
 
+
             IndirizzoModel::create([
                 'idUserClient' => $userClient->idUserClient,
-                "idTipoIndirizzo" => $request->idTipoIndirizzo,
+                "idTipoIndirizzo" => 1,
                 "idNazione" => $request->idNazione,
                 "idComune" => $request->idComune,
                 "indirizzo" => $request->indirizzo,
@@ -148,7 +150,6 @@ class UserClientController extends Controller
             ]);
 
             RecapitoModel::create([
-                "idRecapito" => $request->idTipoRecapito,
                 "idUserClient" => $userClient->idUserClient,
                 "idTipoRecapito" => $request->idTipoRecapito,
                 "recapito" => $request->recapito,

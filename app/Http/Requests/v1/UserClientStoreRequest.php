@@ -22,7 +22,7 @@ class UserClientStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'idUserClient' => 'required|integer',
+            // 'idUserClient' => 'required|integer',
             'idUserStatus' => 'required|integer',
             'idLingua' => 'required|integer',
             'nome' => 'string|max:255',

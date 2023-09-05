@@ -23,9 +23,8 @@ class IndirizzoModelFactory extends Factory
             "idComune" => $this->faker->numberBetween(1, 600),
             "idNazione" => $this->faker->numberBetween(1, 252),
             "indirizzo" => $this->faker->sentence(2),
-            "civico" => $this->faker->numberBetween(1,199),
+            "civico" => $this->faker->numberBetween(1, 199),
             "cap" => $this->faker->numberBetween(10000, 120000),
-            "localita" => null,
             "comune" => $this->faker->unique()->word(),
         ];
     }

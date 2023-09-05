@@ -14,13 +14,7 @@ class UserStatusModel extends Model
     protected $table = "userStatus";
 
     protected $fillable = [
-        "idUserStatus",
-        "idUserClient",
+        // "idUserStatus",
         "nome"
     ];
-
-    public function userClient()
-    {
-        return $this->hasOne(UserClientModel::class, 'idUserClient', 'idUserClient');
-    }
 }

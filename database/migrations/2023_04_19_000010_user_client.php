@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('userClient', function (Blueprint $table) {
             $table->id('idUserClient');
-            $table->unsignedBigInteger('idUserStatus');
+            $table->unsignedBigInteger('idUserStatus')->default(1);
             $table->integer('idLingua')->default(1);
             $table->string('nome', 45)->nullable();
             $table->string('cognome', 45);

@@ -22,7 +22,6 @@ class IndirizzoSeeder extends Seeder
                 "idNazione" => 1,
                 "indirizzo" => hash("sha512", trim("Via Uditore, 22")),
                 "cap" => 90145,
-                "localita" => null,
                 "Preferito" => 1
             ]
         );

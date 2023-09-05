@@ -27,10 +27,8 @@ class IndirizzoResource extends JsonResource
             'idIndirizzo' => $this->idIndirizzo,
             'idTipoIndirizzo' => $this->idTipoIndirizzo,
             'idComune' => $this->idComune,
-            'localita' => $this->localita,
             'cap' => $this->cap,
             'indirizzo' => $this->indirizzo,
-            'civico' => $this->civico,
             'idNazione' => $this->idNazione,
             'idUserClient' => $this->idUserClient
         ];

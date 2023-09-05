@@ -15,8 +15,12 @@ class UserStatusSeeder extends Seeder
     {
         UserStatusModel::create([
             "idUserStatus" => 1,
-            "idUserClient" => 1,
             "nome" => "attivo"
+        ]);
+
+        UserStatusModel::create([
+            "idUserStatus" => 2,
+            "nome" => "bannato"
         ]);
     }
 }
