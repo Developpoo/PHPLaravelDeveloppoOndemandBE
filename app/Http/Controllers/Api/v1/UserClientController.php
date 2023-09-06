@@ -141,7 +141,7 @@ class UserClientController extends Controller
 
             IndirizzoModel::create([
                 'idUserClient' => $userClient->idUserClient,
-                "idTipoIndirizzo" => 1,
+                "idTipoIndirizzo" => $request->idTipoIndirizzo,
                 "idNazione" => $request->idNazione,
                 "idComune" => $request->idComune,
                 "indirizzo" => $request->indirizzo,
