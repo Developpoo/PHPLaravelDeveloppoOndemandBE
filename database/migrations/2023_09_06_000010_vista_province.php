@@ -12,16 +12,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        DB::statement("
-        CREATE VIEW vistaProvince
-        AS
-        SELECT 
-	DISTINCT `comuniItaliani`.`siglaAutomobilistica` AS `siglaAutomobilistica`,
-	if(`comuniItaliani`.`metropolitana` IS NULL OR `comuniItaliani`.`metropolitana`='',`comuniItaliani`.`provincia`,`comuniItaliani`.`metropolitana`) AS `provincia`
-FROM `comuniItaliani`
-ORDER BY 
-	if(`comuniItaliani`.`metropolitana` IS NULL OR `comuniItaliani`.`metropolitana`='',`comuniItaliani`.`provincia`,`comuniItaliani`.`metropolitana`)
-       ");
+
+        // Sistemare la migrazion per i comuni e tutti i model e controller relativi per introdurre i campi metropolinata di modo da creare la Join per la vista
+
+
+        // DB::statement("
+        // CREATE VIEW vistaProvince
+        // AS
+        // SELECT 
+        // DISTINCT `comuniItaliani`.`siglaAutomobilistica` AS `siglaAutomobilistica`,
+        // if(`comuniItaliani`.`metropolitana` IS NULL OR `comuniItaliani`.`metropolitana`='',`comuniItaliani`.`provincia`,`comuniItaliani`.`metropolitana`) AS `provincia`
+        // FROM `comuniItaliani`
+        // ORDER BY 
+        // if(`comuniItaliani`.`metropolitana` IS NULL OR `comuniItaliani`.`metropolitana`='',`comuniItaliani`.`provincia`,`comuniItaliani`.`metropolitana`)
+        // ");
     }
 
     /**
@@ -29,6 +33,6 @@ ORDER BY
      */
     public function down(): void
     {
-        DB::statement("DROP VIEW IF EXISTS vistaProvince");
+        // DB::statement("DROP VIEW IF EXISTS vistaProvince");
     }
 };

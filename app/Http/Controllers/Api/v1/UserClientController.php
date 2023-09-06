@@ -138,10 +138,9 @@ class UserClientController extends Controller
                 'idUserRole' => 2
             ]);
 
-
             IndirizzoModel::create([
                 'idUserClient' => $userClient->idUserClient,
-                "idTipoIndirizzo" => $request->idTipoIndirizzo,
+                "idTipoIndirizzo" => 1,
                 "idNazione" => $request->idNazione,
                 "idComune" => $request->idComune,
                 "indirizzo" => $request->indirizzo,
@@ -151,7 +150,7 @@ class UserClientController extends Controller
 
             RecapitoModel::create([
                 "idUserClient" => $userClient->idUserClient,
-                "idTipoRecapito" => $request->idTipoRecapito,
+                "idTipoRecapito" => 3,
                 "recapito" => $request->recapito,
                 "preferito" => 0
             ]);
