@@ -15,7 +15,9 @@ class CategoryModel extends Model
 
     protected $fillable = [
         "idCategory",
-        "nome"
+        "nome",
+        "img",
+        "icona"
     ];
 
     /****************************** */

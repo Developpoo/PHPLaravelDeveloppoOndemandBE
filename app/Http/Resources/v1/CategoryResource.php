@@ -16,18 +16,19 @@ class CategoryResource extends JsonResource
     {
         // return parent::toArray($request);
         return $this->getCampi();
-
     }
 
     // PROTECTED
     // Funzione che serve a non visualizzare tutti i campi che mi richiamo in modo protected per sostituire return parent::toArray($request); che altrimenti mi avrebbe
     // mostrato sempre tutti i campi della tabella
 
-    protected function getCampi() 
+    protected function getCampi()
     {
         return [
             'idCategory' => $this->idCategory,
-            'nome' => $this->nome
+            'nome' => $this->nome,
+            'img' => $this->img,
+            'icona' => $this->icona
         ];
     }
 }

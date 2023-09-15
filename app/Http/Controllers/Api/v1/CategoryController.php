@@ -24,7 +24,6 @@ class CategoryController extends Controller
             if (Gate::allows('Administrator')) {
                 $category = CategoryModel::all();
             } else {
-                // da dove si vede Watch? da chiedere a Rino
                 $category = CategoryModel::all()->where('watch', 1);
             }
             return new CategoryCollection($category);

@@ -29,9 +29,9 @@ class FilmStoreRequest extends FormRequest
             "regista" => "string|max:45",
             "attori" => "string|max:255",
             "anno" => "integer | max:" . date("Y"),
-            "idImg" => "integer|max:10",
-            "idFilmato" => "integer|max:10",
-            "idTrailer" => "integer|max:10"
+            "img" => "string|max:255",
+            "filmato" => "string|max:255",
+            "icona" => "string|max:255"
         ];
     }
 }

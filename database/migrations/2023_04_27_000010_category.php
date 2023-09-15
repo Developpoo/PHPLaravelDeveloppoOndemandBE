@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('category', function (Blueprint $table) {
             $table->id('idCategory');
             $table->string('nome', 45);
+            $table->string('img', 255)->nullable();
+            $table->string('icona', 255)->nullable();
             $table->unsignedTinyInteger("watch")->default(0);
 
             $table->softDeletes();
@@ -31,21 +33,3 @@ return new class extends Migration
         Schema::dropIfExists('category');
     }
 };
-
-
-
-// Schema::create('categorie', function (Blueprint $table) {
-//     $table->id('idCategoria');
-//     $table->string("nome", 45);
-//     $table->unsignedTinyInteger("visualizzato")->default(0);
-//     $table->softDeletes();
-//     $table->unsignedBigInteger('created_by');
-//     $table->unsignedBigInteger('updated_by');
-//     $table->timestamps();
-
-//     $table->index('visualizzato');
-// });
-// Schema::table('categorie', function (Blueprint $table) {
-//     $table->foreign('created_by')->references('idContatto')->on('contatti');
-//     $table->foreign('updated_by')->references('idContatto')->on('contatti');
-// });

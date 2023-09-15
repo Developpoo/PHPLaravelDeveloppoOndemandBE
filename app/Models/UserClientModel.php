@@ -18,15 +18,15 @@ class UserClientModel extends ClasseGate
     protected $with = ['recapiti', 'indirizzi', 'crediti'];
 
     protected $fillable = [
-        'idUserClient',
-        'idUserStatus',
+        // 'idUserClient',
+        // 'idUserStatus',
         'idLingua',
         'nome',
         'cognome',
         'sesso',
         'codiceFiscale',
         'idNazione',
-        'regione',
+        // 'regione',
         'idComune',
         'dataNascita',
         'accettaTermini',

@@ -161,55 +161,6 @@ class UserClientController extends Controller
         return new UserClientResource($result);
     }
 
-    // public function recordUserClient(UserClientStoreRequest $request)
-    // {
-    //     $dati = $request->validated();
-
-    //     $result = DB::transaction(function () use ($request, $dati) {
-    //         $userClient = UserClientModel::create($dati);
-
-    //         UserAuthModel::create([
-    //             'idUserClient' => $userClient->idUserClient,
-    //             'user' => hash("sha512", trim($dati['user'])),
-    //             'challenge' =>  hash("sha512", trim("Ciao")),
-    //             'secretJWT' => hash("sha512", trim("Secret")),
-    //             'challengeStart' => time()
-    //         ]);
-
-    //         UserPasswordModel::create([
-    //             'idUserClient' => $userClient->idUserClient,
-    //             'password' => hash("sha512", trim($dati['password'])),
-    //             'salt' => hash("sha512", trim(random_bytes(32)))
-    //         ]);
-
-    //         UserClientRoleModel::create([
-    //             'idUserClient' => $userClient->idUserClient,
-    //             'idUserRole' => 2
-    //         ]);
-
-    //         IndirizzoModel::create([
-    //             'idUserClient' => $userClient->idUserClient,
-    //             'idTipoIndirizzo' => $dati['idTipoIndirizzo'],
-    //             'idNazione' => $dati['idNazione'],
-    //             'idComune' => $dati['idComune'],
-    //             'indirizzo' => $dati['indirizzo'],
-    //             'cap' => $dati['cap'],
-    //             'preferito' => 0
-    //         ]);
-
-    //         RecapitoModel::create([
-    //             'idUserClient' => $userClient->idUserClient,
-    //             'idTipoRecapito' => $dati['idTipoRecapito'],
-    //             'recapito' => $dati['recapito'],
-    //             'preferito' => 0
-    //         ]);
-
-    //         return $userClient;
-    //     });
-
-    //     return new UserClientResource($result);
-    // }
-
 
     // ----------------------------------------------------------------------------------------------------------
     /**

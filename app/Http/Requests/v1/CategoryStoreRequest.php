@@ -23,7 +23,9 @@ class CategoryStoreRequest extends FormRequest
     {
         return [
             'idCategory' => 'required|integer',
-            'nome' => 'required|string|max:45'
+            'nome' => 'required|string|max:45',
+            'img' => 'required|string|max:255',
+            'icona' => 'required|string|max:255'
         ];
     }
 }
