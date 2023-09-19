@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class FilmModel extends Model
+class FileModel extends Model
 {
     use HasFactory, SoftDeletes;
 
@@ -15,11 +15,11 @@ class FilmModel extends Model
 
     protected $fillable = [
         "idFile",
-        "idRecord",
-        "tabella",
+        "idTipoFile",
         "nome",
-        "size",
-        "ext",
+        "src",
+        "alt",
+        "title",
         "descrizione",
         "formato"
     ];

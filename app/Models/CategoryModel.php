@@ -16,19 +16,20 @@ class CategoryModel extends Model
     protected $fillable = [
         "idCategory",
         "nome",
-        "img",
-        "icona"
+        "idFile",
+        "icona",
+        "watch"
     ];
 
     /****************************** */
 
     public function film()
     {
-        return $this->hasMany(FilmModel::class, 'idCategory', 'idCategory');
+        return $this->belongsToMany(FilmModel::class, 'idCategory', 'idCategory');
     }
 
     public function serieTv()
     {
-        return $this->hasMany(SerieTvModel::class, 'idCategory', 'idCategory');
+        return $this->belongsToMany(SerieTvModel::class, 'idCategory', 'idCategory');
     }
 }

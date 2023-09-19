@@ -11,19 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('category', function (Blueprint $table) {
-            $table->id('idCategory');
+        Schema::create('tipoFile', function (Blueprint $table) {
+            $table->id('idTipoFile');
             $table->string('nome', 45);
-            $table->unsignedBigInteger('idFile')->nullable();
-            $table->string('icona', 45)->nullable();
-            $table->unsignedTinyInteger("watch")->default(0);
 
             $table->softDeletes();
             $table->timestamps();
-
-            $table->index('watch');
-
-            $table->foreign('idFile')->references('idFile')->on('file');
         });
     }
 
@@ -32,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('category');
+        Schema::dropIfExists('tipoFile');
     }
 };

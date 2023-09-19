@@ -13,15 +13,15 @@ return new class extends Migration
     {
         Schema::create('file', function (Blueprint $table) {
             $table->id('idFile');
-            $table->Integer('idRecord');
-            $table->string('tabella', 45);   
-            $table->string('nome', 45);   
-            $table->integer('size');    
-            $table->string('ext', 6);         
-            $table->tinyText('descrizione');     
-            $table->string('formato', 45);   
+            $table->Integer('idTipoFile');
+            $table->string('nome', 45)->nullable();
+            $table->string('src', 255);
+            $table->string('alt', 45)->nullable();
+            $table->string('title', 45)->nullable();
+            $table->tinyText('descrizione')->nullable();
+            $table->string('formato', 45)->nullable();
 
-            $table->softDeletes(); 
+            $table->softDeletes();
             $table->timestamps();
         });
     }

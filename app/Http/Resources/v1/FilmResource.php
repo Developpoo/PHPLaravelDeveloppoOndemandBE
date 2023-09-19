@@ -30,8 +30,6 @@ class FilmResource extends JsonResource
             'durata' => $this->durata,
             'regista' => $this->regista,
             'attori' => $this->attori,
-            "img" => $this->img,
-            "filmato" => $this->filmato,
             "icona" => $this->icona,
             'anno' => $this->anno,
             'watch' => $this->watch

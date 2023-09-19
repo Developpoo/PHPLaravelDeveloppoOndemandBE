@@ -50,8 +50,11 @@ class DatabaseSeeder extends Seeder
                 LinguaSeeder::class,
                 TraduzioneSeeder::class,
                 TraduzioneCustomSeeder::class,
+                FileSeeder::class,
                 CategorySeeder::class,
                 FilmCategorySeeder::class,
+                TipoFileSeeder::class,
+                FilmFileSeeder::class
             ]
         );
     }

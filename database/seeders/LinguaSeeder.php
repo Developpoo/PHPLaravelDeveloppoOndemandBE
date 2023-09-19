@@ -19,4 +19,15 @@ class LinguaSeeder extends Seeder
         LinguaModel::create(["idLingua" => 4, "nome" => "English", "abbreviazione" => "ENG", "locale" => "en_GB"]);
         LinguaModel::create(["idLingua" => 5, "nome" => "Français", "abbreviazione" => "FRA", "locale" => " fr_FR"]);
     }
+
+    // // Recupera la lingua desiderata dalla tabella "lingue" usando il suo nome
+    // $lingua = 'Italiano'; // Modifica il nome della lingua in base a quella che desideri utilizzare
+
+    // // Ottieni l'ID della lingua dalla tabella "lingue"
+    // $language = LinguaModel::where('nome', $lingua)->value('idLingua');
+
+    // if (!$language) {
+    //     // Se la lingua non esiste nella tabella "lingue", usa una lingua di default
+    //     $language = LinguaModel::where('nome', 'Italiano')->value('idLingua');
+    // }
 }

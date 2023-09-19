@@ -22,16 +22,22 @@ class FilmStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "idFilm" => "required|integer",
+            // "idFilm" => "required|integer",
             "titolo" => "required|string|max:255",
             "descrizione" => "required|string",
             "durata" => "integer",
             "regista" => "string|max:45",
             "attori" => "string|max:255",
-            "anno" => "integer | max:" . date("Y"),
-            "img" => "string|max:255",
-            "filmato" => "string|max:255",
-            "icona" => "string|max:255"
+            "anno" => "integer|max:" . date("Y"),
+            "icona" => "string|max:255",
+            "file_data" => "array", // Accetta un array di dati del file
+            "file_data.*.idTipoFile" => "required|integer", // Regole di validazione per l'ID del tipo di file
+            "file_data.*.nome" => "string|max:45", // Regole di validazione per il nome del file
+            "file_data.*.src" => "required|string|max:255", // Regole di validazione per il percorso del file
+            "file_data.*.alt" => "string|max:45", // Regole di validazione per l'attributo 'alt' del file
+            "file_data.*.title" => "string|max:45", // Regole di validazione per l'attributo 'title' del file
+            "file_data.*.descrizione" => "string", // Regole di validazione per la descrizione del file
+            "file_data.*.formato" => "string|max:45", // Regole di validazione per il formato del file
         ];
     }
 }

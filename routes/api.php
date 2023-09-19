@@ -5,12 +5,14 @@ use App\Http\Controllers\Api\v1\CategoryController;
 use App\Http\Controllers\Api\v1\ComuneItalianoController;
 use App\Http\Controllers\Api\v1\ConfigurationController;
 use App\Http\Controllers\Api\v1\CreditoController;
+use App\Http\Controllers\Api\v1\FileController;
 use App\Http\Controllers\Api\v1\FilmController;
 use App\Http\Controllers\Api\v1\IndirizzoController;
 use App\Http\Controllers\Api\v1\LinguaController;
 use App\Http\Controllers\Api\v1\RecapitoController;
 use App\Http\Controllers\Api\v1\NazioneController;
 use App\Http\Controllers\Api\v1\SignController;
+use App\Http\Controllers\Api\v1\TipoFileController;
 use App\Http\Controllers\Api\v1\UserClientController;
 use App\Http\Controllers\Api\v1\UserRoleController;
 use App\Http\Controllers\Api\v1\UserStatusController;
@@ -100,43 +102,43 @@ Route::get(_VERS . '/comuniItaliani/{comune}', [comuneItalianoController::class,
 Route::get(_VERS . '/comuniItaliani/provincia/{provincia}', [comuneItalianoController::class, 'indexProvincia']);
 Route::get(_VERS . '/comuniItaliani/regione/{regione}', [comuneItalianoController::class, 'indexRegione']);
 
-//NAZIONI
+// NAZIONI
 Route::get(_VERS . '/nazioni', [NazioneController::class, 'index']);
 Route::get(_VERS . '/nazioni/{nazione}', [NazioneController::class, 'show']);
 Route::get(_VERS . '/nazioni/continente/{continente}', [NazioneController::class, 'indexContinente']);
 
-//TIPOINDIRIZZO
+// TIPOINDIRIZZO
 Route::get(_VERS . '/tipoIndirizzi', [TipoIndirizzoController::class, 'index']);
 Route::get(_VERS . '/tipoIndirizzi/{tipoIndirizzo}', [TipoIndirizzoController::class, 'show']);
 
-//TIPORECAPITO
+// TIPORECAPITO
 Route::get(_VERS . '/tipoRecapiti', [TipoRecapitoController::class, 'index']);
 Route::get(_VERS . '/tipoRecapiti/{idTipoRecapito}', [TipoRecapitoController::class, 'show']);
 
-//LINGUE
+// LINGUE
 Route::get(_VERS . '/lingue', [LinguaController::class, 'index']);
 Route::get(_VERS . '/lingue/{idLingua}', [LinguaController::class, 'show']);
 
-//TRADUZIONI
+// TRADUZIONI
 Route::get(_VERS . '/traduzioni', [TraduzioneController::class, 'index']);
 Route::get(_VERS . '/traduzioni/{idTraduzione}', [TraduzioneController::class, 'show']);
 Route::get(_VERS . '/lingue/{idLingua}/traduzioni', [TraduzioneController::class, 'showTraduzioni']);
 
-//TRADUZIONI CUSTOM
+// TRADUZIONI CUSTOM
 Route::get(_VERS . '/traduzioniCustom', [TraduzioneCustomController::class, 'index']);
 Route::get(_VERS . '/traduzioniCustom/{idTraduzioneCustom}', [TraduzioneCustomController::class, 'show']);
 
-//UPLOAD
+// UPLOAD
 Route::get(_VERS . '/upload', [UploadFileController::class, 'index']);
 
-//USERAUTH
+// TIPOFILE
+Route::get(_VERS . '/tipoFile', [TipoFileController::class, 'index']);
+Route::get(_VERS . '/tipoFile/{idTipoFile}', [TipoFileController::class, 'show']);
 
-//USERPASSWORD
-
-//INDIRIZZI
+// INDIRIZZI
 Route::post(_VERS . '/indirizzi', [IndirizzoController::class, 'store']);
 
-//RECAPITI
+// RECAPITI
 Route::post(_VERS . '/recapiti', [RecapitoController::class, 'store']);
 
 
@@ -174,6 +176,10 @@ Route::middleware(['authentication', 'UserRoleMiddleware:Administrator,UserClien
     Route::get(_VERS . '/film/ultimi/{numero}', [FilmController::class, 'ultimi']);
     Route::get(_VERS . '/film/category/{idCategory}', [FilmController::class, 'indexCategory']);
     Route::get(_VERS . '/film/{idFilm}', [FilmController::class, 'show']);
+    Route::get(_VERS . '/filmFile', [FilmController::class, 'indexWithFiles']);
+
+    // FILE
+    Route::get(_VERS . '/file', [FileController::class, 'index']);
 });
 
 /*********************************************************************************************** */
@@ -223,6 +229,17 @@ Route::middleware(['authentication', 'UserRoleMiddleware:Administrator'])->group
 
     // FILM
     Route::post(_VERS . '/film', [FilmController::class, 'store']);
-    Route::put(_VERS . '/film/{idfilm}', [FilmController::class, 'update']);
-    Route::delete(_VERS . '/film/{idfilm}', [FilmController::class, 'destroy']);
+    Route::post(_VERS . '/filmFile', [FilmController::class, 'storeFilmFile']);
+    Route::put(_VERS . '/film/{idFilm}', [FilmController::class, 'update']);
+    Route::delete(_VERS . '/film/{idFilm}', [FilmController::class, 'destroy']);
+
+    // TIPO FILE
+    Route::put(_VERS . '/tipoFile/{idTipoFile}', [TipoFileController::class, 'update']);
+    Route::post(_VERS . '/tipoFile', [TipoFileController::class, 'store']);
+    Route::delete(_VERS . '/tipoFile/{idTipoFile}', [TipoFileController::class, 'destroy']);
+
+    // FILE
+    Route::post(_VERS . '/file', [FilmController::class, 'store']);
+    Route::put(_VERS . '/file/{idFile}', [FilmController::class, 'update']);
+    Route::delete(_VERS . '/file/{idFile}', [FilmController::class, 'destroy']);
 });

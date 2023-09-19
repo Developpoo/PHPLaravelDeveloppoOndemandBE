@@ -11,19 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('category', function (Blueprint $table) {
-            $table->id('idCategory');
-            $table->string('nome', 45);
+        Schema::create('filmFile', function (Blueprint $table) {
+            $table->unsignedBigInteger('idFilm');
             $table->unsignedBigInteger('idFile')->nullable();
-            $table->string('icona', 45)->nullable();
-            $table->unsignedTinyInteger("watch")->default(0);
 
-            $table->softDeletes();
             $table->timestamps();
 
-            $table->index('watch');
-
+            $table->foreign('idFilm')->references('idFilm')->on('film');
             $table->foreign('idFile')->references('idFile')->on('file');
+
+            $table->primary(['idFilm', 'idFile']);
         });
     }
 
@@ -32,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('category');
+        Schema::dropIfExists('filmFile');
     }
 };

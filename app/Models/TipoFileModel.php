@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class UserStatusModel extends Model
+class TipoFileModel extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $primaryKey = "idUserStatus";
-    protected $table = "userStatus";
+    protected $primaryKey = "idTipoFile";
+    protected $table = "tipoFile";
 
     protected $fillable = [
         "nome"

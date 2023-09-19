@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class FilmCategoryModel extends Model
+class FilmFileModel extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $table = 'filmCategory';
+    protected $table = 'filmFile';
     public $timestamps = true;
     protected $primaryKey = null;
     public $incrementing = false;
@@ -20,8 +20,8 @@ class FilmCategoryModel extends Model
         return $this->belongsTo(FilmModel::class, 'idFilm', 'idFilm');
     }
 
-    public function category()
+    public function file()
     {
-        return $this->belongsToMany(CategoryModel::class, 'idCategory');
+        return $this->belongsToMany(FileModel::class, 'idFile');
     }
 }

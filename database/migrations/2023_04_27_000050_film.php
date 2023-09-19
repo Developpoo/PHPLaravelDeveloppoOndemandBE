@@ -18,9 +18,7 @@ return new class extends Migration
             $table->tinyInteger('durata')->unsigned()->nullable();
             $table->string('regista', 255);
             $table->string('attori', 255);
-            $table->string('img', 255);
-            $table->string('icona', 255);
-            $table->string('filmato', 255);
+            $table->string('icona', 255)->nullable();
             $table->unsignedSmallInteger('anno');
             $table->integer('watch')->nullable()->default(0);
 

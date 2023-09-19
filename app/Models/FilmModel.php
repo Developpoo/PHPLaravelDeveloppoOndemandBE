@@ -21,9 +21,8 @@ class FilmModel extends Model
         "regista",
         "attori",
         "anno",
-        "img",
-        "filmato",
         "icona",
+        "watch",
         'created_by',
         'updated_by'
     ];
