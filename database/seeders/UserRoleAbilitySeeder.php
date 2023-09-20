@@ -19,5 +19,8 @@ class UserRoleAbilitySeeder extends Seeder
         UserRoleAbilityModel::create(["idUserRoleAbility" => 4, "idUserAbility" => 4, "idUserRole" => 1]);
         UserRoleAbilityModel::create(["idUserRoleAbility" => 5, "idUserAbility" => 1, "idUserRole" => 2]);
         UserRoleAbilityModel::create(["idUserRoleAbility" => 6, "idUserAbility" => 3, "idUserRole" => 2]);
+        UserRoleAbilityModel::create(["idUserRoleAbility" => 7, "idUserAbility" => 1, "idUserRole" => 4]);
+        UserRoleAbilityModel::create(["idUserRoleAbility" => 8, "idUserAbility" => 2, "idUserRole" => 4]);
+        UserRoleAbilityModel::create(["idUserRoleAbility" => 9, "idUserAbility" => 3, "idUserRole" => 4]);
     }
 }

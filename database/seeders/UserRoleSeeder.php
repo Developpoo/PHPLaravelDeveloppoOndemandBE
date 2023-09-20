@@ -22,10 +22,15 @@ class UserRoleSeeder extends Seeder
             "idUserRole" => 2,
             "nome" => "User"
         ]);
-        
+
         UserRoleModel::create([
             "idUserRole" => 3,
             "nome" => "Visitor"
+        ]);
+
+        UserRoleModel::create([
+            "idUserRole" => 4,
+            "nome" => "Manager"
         ]);
     }
 }
