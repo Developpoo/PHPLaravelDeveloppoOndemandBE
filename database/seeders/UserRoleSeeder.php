@@ -13,24 +13,9 @@ class UserRoleSeeder extends Seeder
      */
     public function run(): void
     {
-        UserRoleModel::create([
-            "idUserRole" => 1,
-            "nome" => "Administrator"
-        ]);
-
-        UserRoleModel::create([
-            "idUserRole" => 2,
-            "nome" => "User"
-        ]);
-
-        UserRoleModel::create([
-            "idUserRole" => 3,
-            "nome" => "Visitor"
-        ]);
-
-        UserRoleModel::create([
-            "idUserRole" => 4,
-            "nome" => "Manager"
-        ]);
+        UserRoleModel::create(["idUserRole" => 1, "nome" => "Administrator"]);
+        UserRoleModel::create(["idUserRole" => 2, "nome" => "User"]);
+        UserRoleModel::create(["idUserRole" => 3, "nome" => "Visitor"]);
+        UserRoleModel::create(["idUserRole" => 4, "nome" => "Manager"]);
     }
 }

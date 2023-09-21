@@ -19,6 +19,8 @@ class UserRoleMiddleware
     {
         // return $next($request);
         // print_r($requiredRole);
+        // print_r($request->userRole);
+
         abort_if(0 === count(array_intersect($requiredRole, $request->userRole)), 403, 'MD_0001');
         return $next($request);
     }

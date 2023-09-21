@@ -77,7 +77,7 @@ if (!defined('_VERS')) {
 // });
 
 /*********************************************************************************** */
-// FREE ROUTE ADMINISTRATORS - USERCLIENTS - VISITORS
+// FREE ROUTE ADMINISTRATORS - USERCLIENTS - VISITORS - MANAGERS
 // API FREE ##########################################àààà##############################
 
 Route::get(_VERS . '/signClient/{userClient}/{hash?}', [SignController::class, 'show']);
@@ -143,9 +143,9 @@ Route::post(_VERS . '/recapiti', [RecapitoController::class, 'store']);
 
 
 /*********************************************************************************************** */
-// AUTHENTICATION ROUTE USERCLIENTS & ADMISTRATORS
+// AUTHENTICATION ROUTE USERCLIENTS - ADMISTRATORS - MANAGERS
 
-Route::middleware(['authentication', 'UserRoleMiddleware:Administrator,UserClient, Manager'])->group(function () {
+Route::middleware(['authentication', 'UserRoleMiddleware:Administrator,User,Manager'])->group(function () {
 
     // USER CLIENT
     Route::get(_VERS . '/userClient/{idUserClient}', [UserClientController::class, 'show']);
@@ -183,9 +183,9 @@ Route::middleware(['authentication', 'UserRoleMiddleware:Administrator,UserClien
 });
 
 /*********************************************************************************************** */
-// AUTHENTICATION ROUTE ADMINISTRATORS - MANAGER
+// AUTHENTICATION ROUTE ADMINISTRATORS - MANAGERS
 
-Route::middleware(['authentication', 'UserRoleMiddleware:Administrator, Manager'])->group(function () {
+Route::middleware(['authentication', 'UserRoleMiddleware:Administrator,Manager'])->group(function () {
 
     // CATEGORIE
     Route::post(_VERS . '/category', [CategoryController::class, 'store']);
@@ -257,65 +257,3 @@ Route::middleware(['authentication', 'UserRoleMiddleware:Administrator'])->group
     // FILE
     Route::delete(_VERS . '/file/{idFile}', [FilmController::class, 'destroy']);
 });
-
-// /*********************************************************************************************** */
-// // AUTHENTICATION ROUTE ADMINISTRATORS
-
-// Route::middleware(['authentication', 'UserRoleMiddleware:Administrator, Manager'])->group(function () {
-
-//     // USER CLIENT
-//     Route::get(_VERS . '/userClient', [UserClientController::class, 'index']);
-
-//     // Indirizzi
-//     Route::get(_VERS . '/indirizzi', [IndirizzoController::class, 'index']);
-
-//     // TipoIndirizzi
-//     Route::put(_VERS . '/tipoIndirizzi/{tipoIndirizzo}', [TipoIndirizzoController::class, 'update']);
-//     Route::post(_VERS . '/tipoIndirizzi', [TipoIndirizzoController::class, 'store']);
-//     Route::delete(_VERS . '/tipoIndirizzi/{tipoIndirizzo}', [TipoIndirizzoController::class, 'destroy']);
-
-//     // Recapiti
-//     Route::get(_VERS . '/recapito', [RecapitoController::class, 'index']);
-
-//     // TipoRecapiti
-//     Route::put(_VERS . '/tipoRecapiti/{idTipoRecapito}', [TipoRecapitoController::class, 'update']);
-//     Route::post(_VERS . '/tipoRecapiti', [TipoRecapitoController::class, 'store']);
-//     Route::delete(_VERS . '/tipoRecapiti/{idTipoRecapito}', [TipoRecapitoController::class, 'destroy']);
-
-//     // USER STATUS
-//     Route::put(_VERS . '/userStatus/{idUserStatus}', [UserStatusController::class, 'update']);
-//     Route::post(_VERS . '/userStatus', [UserStatusController::class, 'store']);
-//     Route::delete(_VERS . '/userStatus/{idUserStatus}', [UserStatusController::class, 'destroy']);
-
-//     // USER ROLE
-//     Route::put(_VERS . '/userRole/{idUserRole}', [UserRoleController::class, 'update']);
-//     Route::post(_VERS . '/userRole', [UserRoleController::class, 'store']);
-//     Route::delete(_VERS . '/userRole/{idUserRole}', [UserRoleController::class, 'destroy']);
-
-//     // CREDITO
-//     Route::get(_VERS . '/crediti', [CreditoController::class, 'index']);
-//     Route::post(_VERS . '/crediti', [CreditoController::class, 'store']);
-//     Route::put(_VERS . '/crediti/{idCredito}', [CreditoController::class, 'update']);
-//     Route::delete(_VERS . '/crediti/{idCredito}', [CreditoController::class, 'destroy']);
-
-//     // CATEGORIE
-//     Route::post(_VERS . '/category', [CategoryController::class, 'store']);
-//     Route::put(_VERS . '/category/{idCategory}', [CategoryController::class, 'update']);
-//     Route::delete(_VERS . '/category/{idCategory}', [CategoryController::class, 'destroy']);
-
-//     // FILM
-//     Route::post(_VERS . '/film', [FilmController::class, 'store']);
-//     Route::post(_VERS . '/filmFile', [FilmController::class, 'storeFilmFile']);
-//     Route::put(_VERS . '/film/{idFilm}', [FilmController::class, 'update']);
-//     Route::delete(_VERS . '/film/{idFilm}', [FilmController::class, 'destroy']);
-
-//     // TIPO FILE
-//     Route::put(_VERS . '/tipoFile/{idTipoFile}', [TipoFileController::class, 'update']);
-//     Route::post(_VERS . '/tipoFile', [TipoFileController::class, 'store']);
-//     Route::delete(_VERS . '/tipoFile/{idTipoFile}', [TipoFileController::class, 'destroy']);
-
-//     // FILE
-//     Route::post(_VERS . '/file', [FilmController::class, 'store']);
-//     Route::put(_VERS . '/file/{idFile}', [FilmController::class, 'update']);
-//     Route::delete(_VERS . '/file/{idFile}', [FilmController::class, 'destroy']);
-// });

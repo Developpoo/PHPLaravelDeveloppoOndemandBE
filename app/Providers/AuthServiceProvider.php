@@ -29,7 +29,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        // Se si usa php artisan migrate --pretend testi la migration prima di farlo
+        // Se si usa php artisan migrate --pretend si testano la migration prima di farle
         if (Schema::hasTable("userRole")) {
             if (app()->environment() !== 'testing') {
                 // GATE ROLE
