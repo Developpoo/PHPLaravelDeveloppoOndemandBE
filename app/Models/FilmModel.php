@@ -43,4 +43,10 @@ class FilmModel extends Model
     {
         return $this->belongsToMany(RegistaModel::class, 'idRegista', 'idRegista')->orderBy("preferito", "DESC");
     }
+
+    public function files()
+    {
+        return $this->belongsToMany(FileModel::class, 'filmFile', 'idFilm', 'idFile')
+            ->withTimestamps();
+    }
 }

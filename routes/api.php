@@ -67,9 +67,9 @@ if (!defined('_VERS')) {
 // });
 
 // Route::get(_VERS . '/testLogin', function () {
-//     $hashUser = "d3d05637c6f66919b002c215dbec2a40f703fe0e4109bc27be2a6ce50dea57a3c308cfa5124f704b5e8fe0059d29d4f0af7ebfbaf80906c6be554636bc6b1952";
+//     $hashUser = "49cca1b5126b0ca1a60374152e335679c139ea79165c3578c51d71e1fdc4f95dac7b36a576b67ac6f5edeacb26acc666f4c17db1f8f04e85fd07dcc951790470";
 //     $pwd = "411fe146b5f5418be1b978b41aa37322f6c89bce93d4ae6e66a11df5f66936b1efbdbad5d04f5eda43e602a86c2f60ed38b67ed364d5066af32d117827fcffa8";
-//     $salt = "f76788fdccc7410c974d18cd3c38fad74fe513cefa92199e0aeab1abf90d571467117eeb00df7045ce73b32439db43800addc547e10365f65f682626f297de47";
+//     $salt = "2cce0c1495eedf94d2cf2385f5d2293e9c6a80798601ef91fb4f359ed2ac1e57a4651a0a77d48c7e5bf68b96ee522c6110754c3f14dd75eb253dc91874546618";
 
 //     $hashSalePsw = AppHelpers::hiddenPassword($pwd, $salt);
 

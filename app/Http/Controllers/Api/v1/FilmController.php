@@ -173,22 +173,22 @@ class FilmController extends Controller
      */
     public function indexWithFiles()
     {
-        try {
-            // Assicurati che l'utente sia autorizzato a leggere i film
-            if (Gate::allows('read')) {
-                // Recupera tutti i film con i file associati
-                $films = FilmModel::with('files')->get();
+        // try {
+        // Assicurati che l'utente sia autorizzato a leggere i film
+        if (Gate::allows('read')) {
+            // Recupera tutti i film con i file associati
+            $films = FilmModel::with('files')->get();
 
-                // Restituisci i dati come JSON
-                return response()->json(['films' => $films], 200);
-            } else {
-                // Restituisci una risposta 403 (Vietato) se l'utente non è autorizzato
-                return response()->json(['error' => 'Non sei autorizzato a leggere i film con i file associati.'], 403);
-            }
-        } catch (\Exception $e) {
-            // Gestisci eventuali errori
-            return response()->json(['error' => 'Errore durante la ricerca dei film con i file associati.'], 500);
+            // Restituisci i dati come JSON
+            return response()->json(['films' => $films], 200);
+        } else {
+            // Restituisci una risposta 403 (Vietato) se l'utente non è autorizzato
+            return response()->json(['error' => 'Non sei autorizzato a leggere i film con i file associati.'], 403);
         }
+        // } catch (\Exception $e) {
+        //     // Gestisci eventuali errori
+        //     return response()->json(['error' => 'Errore durante la ricerca dei film con i file associati.'], 500);
+        // }
     }
 
     /**

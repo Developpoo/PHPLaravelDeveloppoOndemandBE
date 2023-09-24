@@ -23,4 +23,10 @@ class FileModel extends Model
         "descrizione",
         "formato"
     ];
+
+    public function films()
+    {
+        return $this->belongsToMany(FilmModel::class, 'filmFile', 'idFile', 'idFilm')
+            ->withTimestamps();
+    }
 }

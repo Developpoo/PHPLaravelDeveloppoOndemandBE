@@ -200,7 +200,7 @@ class SignController extends Controller
                     // $passwordClient = AppHelpers::decryptedPassword($hashSalePsw, $secretJWT);
                     if ($hashSalePsw == $passwordHiddenDB) {
                         $token = AppHelpers::createTokenSession($auth->idUserClient, $secretJWT);
-                        // echo "TOKEN: " . $token . "<br>";
+                        echo "TOKEN: " . $token . "<br>";
                         UserAccessModel::deleteAttemps($auth->idUserClient);
                         $access = UserAccessModel::newAccess($auth->idUserClient);
 
