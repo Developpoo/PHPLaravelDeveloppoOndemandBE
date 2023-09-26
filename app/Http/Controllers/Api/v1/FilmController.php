@@ -241,4 +241,27 @@ class FilmController extends Controller
             return response()->json(['error' => 'Errore durante la creazione del film con i file associati.'], 500);
         }
     }
+
+    /**
+     * Restituisce un film specifico con i file associati.
+     *
+     * @param  int  $idFilm
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function showFilmFile($idFilm)
+    {
+        try {
+            // Recupera il film specifico con i file associati
+            $film = FilmModel::with('files')->findOrFail($idFilm);
+
+            // Restituisci i dati come JSON
+            return response()->json(['film' => $film], 200);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            // Gestisci il caso in cui il film non sia stato trovato
+            return response()->json(['error' => 'Il film specificato non esiste.'], 404);
+        } catch (\Exception $e) {
+            // Gestisci eventuali altri errori
+            return response()->json(['error' => 'Errore durante la ricerca del film con i file associati.'], 500);
+        }
+    }
 }

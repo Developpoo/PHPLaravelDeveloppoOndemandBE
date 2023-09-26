@@ -177,6 +177,7 @@ Route::middleware(['authentication', 'UserRoleMiddleware:Administrator,User,Mana
     Route::get(_VERS . '/film/category/{idCategory}', [FilmController::class, 'indexCategory']);
     Route::get(_VERS . '/film/{idFilm}', [FilmController::class, 'show']);
     Route::get(_VERS . '/filmFile', [FilmController::class, 'indexWithFiles']);
+    Route::get(_VERS . '/filmFile/{idFilm}', [FilmController::class, 'showFilmFile']);
 
     // FILE
     Route::get(_VERS . '/file', [FileController::class, 'index']);
