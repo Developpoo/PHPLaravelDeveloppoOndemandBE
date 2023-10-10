@@ -180,7 +180,7 @@ class FilmController extends Controller
             $films = FilmModel::with('files')->get();
 
             // Restituisci i dati come JSON
-            return response()->json(['films' => $films], 200);
+            return response()->json(['data' => $films], 200);
         } else {
             // Restituisci una risposta 403 (Vietato) se l'utente non è autorizzato
             return response()->json(['error' => 'Non sei autorizzato a leggere i film con i file associati.'], 403);

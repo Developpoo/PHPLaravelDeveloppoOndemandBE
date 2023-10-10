@@ -106,10 +106,15 @@ class UserClientController extends Controller
     }
 
     /**
-     *  @param $request
-     *  @return JsonResource
+     * Registra un nuovo utente client nel sistema.
+     *
+     * Questo metodo consente di registrare un nuovo utente client nel sistema. Vengono creati record
+     * nelle tabelle UserClientModel, UserAuthModel, UserPasswordModel, UserClientRoleModel, IndirizzoModel
+     * e RecapitoModel con i dati forniti nella richiesta.
+     *
+     * @param  UserClientStoreRequest  $request  Richiesta di registrazione dell'utente client.
+     * @return \App\Http\Resources\UserClientResource Risorsa che rappresenta il nuovo utente registrato.
      */
-
     public function recordUserClient(UserClientStoreRequest $request)
     {
         $dati = $request->validated();
@@ -160,6 +165,46 @@ class UserClientController extends Controller
 
         return new UserClientResource($result);
     }
+
+    /**
+     * Aggiorna i dati di un utente client esistente nel sistema.
+     *
+     * @param  UserClientUpdateRequest  $request  Richiesta di aggiornamento dei dati dell'utente client.
+     * @param  int  $idUserClient  ID dell'utente client da aggiornare.
+     * @return \App\Http\Resources\UserClientResource Risorsa che rappresenta l'utente client aggiornato.
+     */
+    public function updateUserClient(UserClientUpdateRequest $request, $idUserClient)
+    {
+        $dati = $request->validated();
+        $userClient = UserClientModel::findOrFail($idUserClient);
+
+        $userClient->update($dati);
+
+        return new UserClientResource($userClient);
+    }
+
+    /**
+     * Cancella un utente client dal sistema.
+     *
+     * Questo metodo consente di eliminare un utente client dal sistema. Vengono anche cancellati i record correlati
+     * in altre tabelle, ad esempio IndirizzoModel, RecapitoModel, ecc.
+     *
+     * @param  int  $idUserClient  ID dell'utente client da cancellare.
+     * @return \Illuminate\Http\JsonResponse Risposta JSON confermando la cancellazione.
+     */
+    public function deleteUserClient($idUserClient)
+    {
+        /**
+         * @var UserClientModel $userClient
+         */
+        $userClient = UserClientModel::findOrFail($idUserClient);
+
+        // Cancella anche i record correlati in altre tabelle, ad esempio IndirizzoModel, RecapitoModel, ecc.
+        $userClient->delete();
+
+        return response()->json(['message' => 'Utente cancellato con successo']);
+    }
+
 
 
     // ----------------------------------------------------------------------------------------------------------

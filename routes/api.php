@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\v1\CategoryController;
 use App\Http\Controllers\Api\v1\ComuneItalianoController;
 use App\Http\Controllers\Api\v1\ConfigurationController;
 use App\Http\Controllers\Api\v1\CreditoController;
+use App\Http\Controllers\Api\v1\EmailController;
 use App\Http\Controllers\Api\v1\FileController;
 use App\Http\Controllers\Api\v1\FilmController;
 use App\Http\Controllers\Api\v1\IndirizzoController;
@@ -21,6 +22,8 @@ use App\Http\Controllers\Api\v1\TipoRecapitoController;
 use App\Http\Controllers\Api\v1\TraduzioneController;
 use App\Http\Controllers\Api\v1\TraduzioneCustomController;
 use App\Http\Controllers\Api\v1\UploadFileController;
+use App\Http\Controllers\Api\v1\UserAuthController;
+use App\Http\Controllers\Api\v1\UserPasswordController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -81,8 +84,12 @@ if (!defined('_VERS')) {
 // API FREE ##########################################àààà##############################
 
 Route::get(_VERS . '/signClient/{userClient}/{hash?}', [SignController::class, 'show']);
+// API per la verifica sull'esistente di un user
 Route::get(_VERS . '/searchUserClient/{user}', [SignController::class, 'searchUser']);
+// REGISTRAZIONE UTENTE
 Route::post(_VERS . '/registrazione', [UserClientController::class, 'recordUserClient']);
+// CONTATTI DA WEB
+Route::post(_VERS . '/invia-email', [EmailController::class, 'inviaEmail']);
 
 // USER ROLE
 Route::get(_VERS . '/userRole', [UserRoleController::class, 'index']);
@@ -107,11 +114,11 @@ Route::get(_VERS . '/nazioni', [NazioneController::class, 'index']);
 Route::get(_VERS . '/nazioni/{nazione}', [NazioneController::class, 'show']);
 Route::get(_VERS . '/nazioni/continente/{continente}', [NazioneController::class, 'indexContinente']);
 
-// TIPOINDIRIZZO
+// TIPO INDIRIZZO
 Route::get(_VERS . '/tipoIndirizzi', [TipoIndirizzoController::class, 'index']);
 Route::get(_VERS . '/tipoIndirizzi/{tipoIndirizzo}', [TipoIndirizzoController::class, 'show']);
 
-// TIPORECAPITO
+// TIPO RECAPITO
 Route::get(_VERS . '/tipoRecapiti', [TipoRecapitoController::class, 'index']);
 Route::get(_VERS . '/tipoRecapiti/{idTipoRecapito}', [TipoRecapitoController::class, 'show']);
 
@@ -147,6 +154,12 @@ Route::post(_VERS . '/recapiti', [RecapitoController::class, 'store']);
 
 Route::middleware(['authentication', 'UserRoleMiddleware:Administrator,User,Manager'])->group(function () {
 
+    // MODIFICA E CANCELLAZIONE UTENTE
+    Route::put(_VERS . '/api/user-client/{idUserClient}', [UserClientController::class, 'updateUserClient']);
+    Route::delete(_VERS . '/api/user-client/{idUserClient}', [UserClientController::class, 'deleteUserClient']);
+
+
+
     // USER CLIENT
     Route::get(_VERS . '/userClient/{idUserClient}', [UserClientController::class, 'show']);
     Route::put(_VERS . '/userClient/{idUserClient}', [UserClientController::class, 'update']);
@@ -178,6 +191,7 @@ Route::middleware(['authentication', 'UserRoleMiddleware:Administrator,User,Mana
     Route::get(_VERS . '/film/{idFilm}', [FilmController::class, 'show']);
     Route::get(_VERS . '/filmFile', [FilmController::class, 'indexWithFiles']);
     Route::get(_VERS . '/filmFile/{idFilm}', [FilmController::class, 'showFilmFile']);
+    // Route::get(_VERS . '/filmFile/category/{idCategory}', [FilmController::class, 'storeFilmFileCategory']);
 
     // FILE
     Route::get(_VERS . '/file', [FileController::class, 'index']);
@@ -213,6 +227,12 @@ Route::middleware(['authentication', 'UserRoleMiddleware:Administrator'])->group
 
     // USER CLIENT
     Route::get(_VERS . '/userClient', [UserClientController::class, 'index']);
+
+    // USER AUTH
+    Route::get(_VERS . '/userAuth', [UserAuthController::class, 'index']);
+
+    // USER PASSWORD
+    Route::get(_VERS . '/userPassword', [UserPasswordController::class, 'index']);
 
     // Indirizzi
     Route::get(_VERS . '/indirizzi', [IndirizzoController::class, 'index']);
