@@ -29,8 +29,9 @@ class FilmModel extends Model
 
     public function category()
     {
-        return $this->belongsToMany(CategoryModel::class, 'idCategory', 'idCategory')->orderBy("preferito", "DESC");
+        return $this->belongsToMany(CategoryModel::class, 'filmCategory', 'idFilm', 'idCategory')->orderBy("preferito", "DESC");
     }
+
     public function nazioni()
     {
         return $this->belongsToMany(NazioneModel::class, 'idNazione', 'idNazione')->orderBy("preferito", "DESC");
@@ -46,7 +47,6 @@ class FilmModel extends Model
 
     public function files()
     {
-        return $this->belongsToMany(FileModel::class, 'filmFile', 'idFilm', 'idFile')
-            ->withTimestamps();
+        return $this->belongsToMany(FileModel::class, 'filmFile', 'idFilm', 'idFile');
     }
 }

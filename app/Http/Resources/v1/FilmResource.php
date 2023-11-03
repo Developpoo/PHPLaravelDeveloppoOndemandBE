@@ -25,7 +25,6 @@ class FilmResource extends JsonResource
     {
         return [
             'idFilm' => $this->idFilm,
-            // 'file' => new FileCollection($this->whenLoaded('file')),
             'titolo' => $this->titolo,
             'descrizione' => $this->descrizione,
             'durata' => $this->durata,
@@ -33,10 +32,8 @@ class FilmResource extends JsonResource
             'attori' => $this->attori,
             "icona" => $this->icona,
             'anno' => $this->anno,
-            'watch' => $this->watch
+            'watch' => $this->watch,
+            'file' => new FileCollection($this->whenLoaded('file')),
         ];
     }
 }
-
-
-//'file' => new FileCollection($this->whenLoaded('file')),

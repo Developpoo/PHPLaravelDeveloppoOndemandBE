@@ -22,7 +22,7 @@ class CategoryStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'idCategory' => 'required|integer',
+            // 'idCategory' => 'required|integer',
             'nome' => 'required|string|max:45',
             'idFile' => 'integer',
             'icona' => 'required|string|max:45'

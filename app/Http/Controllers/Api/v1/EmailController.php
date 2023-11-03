@@ -13,7 +13,9 @@ class EmailController extends Controller
         try {
             // Validazione dei dati del modulo
             $request->validate([
+                'nome' => 'required|string|max:255',
                 'email' => 'required|email',
+                'messaggio' => 'required|string',
             ]);
 
             // Dati per l'email principale
@@ -22,12 +24,12 @@ class EmailController extends Controller
             ];
 
             // Invia l'email principale
-            Mail::send('email.messaggio', $data, function ($message) use ($request) {
-                $message->to($request->input('email'))
-                    ->subject('Oggetto dell\'email');
-            });
+            // Mail::send('email.messaggio', $data, function ($message) use ($request) {
+            //     $message->to($request->input('email'))
+            //         ->subject('Oggetto dell\'email');
+            // });
 
-            $autoReplyMessage = 'Grazie di averci contattato. Il nostro staff si farà sentire quanto prima.'; // Testo fisso 
+            $autoReplyMessage = 'Grazie di averci contattato. Il nostro staff ti contatterà quanto prima.'; // Testo fisso 
 
             // Invia la risposta automatica
             Mail::send([], [], function ($message) use ($request, $autoReplyMessage) {

@@ -14,7 +14,6 @@ class CategoryModel extends Model
     protected $primaryKey = "idCategory";
 
     protected $fillable = [
-        "idCategory",
         "nome",
         "idFile",
         "icona",

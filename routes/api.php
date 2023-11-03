@@ -38,11 +38,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-
-
 if (!defined('_VERS')) {
     define('_VERS', 'v1');
 }
@@ -86,10 +81,17 @@ if (!defined('_VERS')) {
 Route::get(_VERS . '/signClient/{userClient}/{hash?}', [SignController::class, 'show']);
 // API per la verifica sull'esistente di un user
 Route::get(_VERS . '/searchUserClient/{user}', [SignController::class, 'searchUser']);
-// REGISTRAZIONE UTENTE
-Route::post(_VERS . '/registrazione', [UserClientController::class, 'recordUserClient']);
+
 // CONTATTI DA WEB
 Route::post(_VERS . '/invia-email', [EmailController::class, 'inviaEmail']);
+
+// REGISTRAZIONE UTENTE
+Route::post(_VERS . '/registrazione', [UserClientController::class, 'recordUserClient']);
+// AGGIORNAMENTO UTENTE
+Route::put(_VERS . '/aggiornamentoUtente', [UserClientController::class, 'updateUserClient']);
+// LEGGI UTENTE
+Route::get(_VERS . '/leggiUtente/{idUserClient}', [UserClientController::class, 'getUserClient']);
+
 
 // USER ROLE
 Route::get(_VERS . '/userRole', [UserRoleController::class, 'index']);
@@ -155,10 +157,8 @@ Route::post(_VERS . '/recapiti', [RecapitoController::class, 'store']);
 Route::middleware(['authentication', 'UserRoleMiddleware:Administrator,User,Manager'])->group(function () {
 
     // MODIFICA E CANCELLAZIONE UTENTE
-    Route::put(_VERS . '/api/user-client/{idUserClient}', [UserClientController::class, 'updateUserClient']);
-    Route::delete(_VERS . '/api/user-client/{idUserClient}', [UserClientController::class, 'deleteUserClient']);
-
-
+    Route::put(_VERS . '/user-client/{idUserClient}', [UserClientController::class, 'updateUserClient']);
+    // Route::delete(_VERS . '/user-client/{idUserClient}', [UserClientController::class, 'deleteUserClient']);
 
     // USER CLIENT
     Route::get(_VERS . '/userClient/{idUserClient}', [UserClientController::class, 'show']);
@@ -216,8 +216,9 @@ Route::middleware(['authentication', 'UserRoleMiddleware:Administrator,Manager']
     Route::post(_VERS . '/tipoFile', [TipoFileController::class, 'store']);
 
     // FILE
-    Route::post(_VERS . '/file', [FilmController::class, 'store']);
-    Route::put(_VERS . '/file/{idFile}', [FilmController::class, 'update']);
+    Route::post(_VERS . '/file', [FileController::class, 'store']);
+    Route::put(_VERS . '/file/{idFile}', [FileController::class, 'update']);
+    Route::get(_VERS . '/file/{idFile}', [FileController::class, 'show']);
 });
 
 /*********************************************************************************************** */
@@ -233,6 +234,9 @@ Route::middleware(['authentication', 'UserRoleMiddleware:Administrator'])->group
 
     // USER PASSWORD
     Route::get(_VERS . '/userPassword', [UserPasswordController::class, 'index']);
+
+    // MODIFICA DATI TABELLE ISCRIZIONE
+    // Route::put(_VERS . 'userClient/{idUserClient}', [UserClientController::class, 'updateUserClient']);
 
     // Indirizzi
     Route::get(_VERS . '/indirizzi', [IndirizzoController::class, 'index']);

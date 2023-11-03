@@ -9,6 +9,7 @@ use App\Http\Requests\v1\UserClientUpdateRequest;
 use App\Http\Resources\v1\CreditoResource;
 use App\Http\Resources\v1\UserClientCollection;
 use App\Http\Resources\v1\UserClientResource;
+use App\Http\Resources\v1\UtenteResource;
 use App\Models\CreditoModel;
 use App\Models\IndirizzoModel;
 use App\Models\RecapitoModel;
@@ -106,6 +107,69 @@ class UserClientController extends Controller
     }
 
     /**
+     * Ottiene i dettagli di un utente client esistente nel sistema.
+     *
+     * Questo metodo consente di ottenere i dettagli di un utente client esistente nel sistema. 
+     * Si recuperano i record dalle tabelle UserClientModel, UserAuthModel, 
+     * UserPasswordModel, UserClientRoleModel, IndirizzoModel e RecapitoModel basandosi sull'ID dell'utente.
+     *
+     * @param  int  $id  L'ID dell'utente client da ottenere.
+     * @return \App\Http\Resources\UserClientResource Risorsa che rappresenta l'utente richiesto.
+     */
+    public function getUserClient($id)
+    {
+        $userClient = UserClientModel::findOrFail($id);
+
+        $userAuth = UserAuthModel::where('idUserClient', $id)->first();
+        $userPassword = UserPasswordModel::where('idUserClient', $id)->first();
+        $userRole = UserClientRoleModel::where('idUserClient', $id)->first();
+        $indirizzo = IndirizzoModel::where('idUserClient', $id)->first();
+        $recapito = RecapitoModel::where('idUserClient', $id)->first();
+
+        // Puoi aggregare i dati come desideri. Ecco un esempio:
+        $result = [
+            'userClient' => [
+                'idUserClient' => $userClient->idUserClient,
+                // Includi qui eventuali altri campi che desideri da UserClientModel
+            ],
+            'userAuth' => [
+                'user' => $userAuth->user,
+                // 'challenge' => $userAuth->challenge,
+                // 'secretJWT' => $userAuth->secretJWT,
+                // 'challengeStart' => $userAuth->challengeStart,
+                // Includi qui eventuali altri campi che desideri da UserAuthModel
+            ],
+            'userPassword' => [
+                'password' => $userPassword->password, // NOTA: In generale, non dovresti mai inviare password in chiaro!
+                'salt' => $userPassword->salt,
+                // Includi qui eventuali altri campi che desideri da UserPasswordModel
+            ],
+            'userRole' => [
+                'idUserRole' => $userRole->idUserRole,
+                // Includi qui eventuali altri campi che desideri da UserClientRoleModel
+            ],
+            'indirizzo' => [
+                'idTipoIndirizzo' => $indirizzo->idTipoIndirizzo,
+                'idNazione' => $indirizzo->idNazione,
+                'idComune' => $indirizzo->idComune,
+                'indirizzo' => $indirizzo->indirizzo,
+                'cap' => $indirizzo->cap,
+                // 'preferito' => $indirizzo->preferito,
+                // Includi qui eventuali altri campi che desideri da IndirizzoModel
+            ],
+            'recapito' => [
+                'idTipoRecapito' => $recapito->idTipoRecapito,
+                'recapito' => $recapito->recapito,
+                // 'preferito' => $recapito->preferito,
+                // Includi qui eventuali altri campi che desideri da RecapitoModel
+            ]
+        ];
+
+
+        return new UtenteResource($result);
+    }
+
+    /**
      * Registra un nuovo utente client nel sistema.
      *
      * Questo metodo consente di registrare un nuovo utente client nel sistema. Vengono creati record
@@ -167,21 +231,69 @@ class UserClientController extends Controller
     }
 
     /**
-     * Aggiorna i dati di un utente client esistente nel sistema.
+     * Aggiorna un utente client esistente nel sistema.
      *
-     * @param  UserClientUpdateRequest  $request  Richiesta di aggiornamento dei dati dell'utente client.
-     * @param  int  $idUserClient  ID dell'utente client da aggiornare.
-     * @return \App\Http\Resources\UserClientResource Risorsa che rappresenta l'utente client aggiornato.
+     * Questo metodo consente di aggiornare un utente client esistente nel sistema. 
+     * Vengono aggiornati i record nelle tabelle UserClientModel, UserAuthModel, 
+     * UserPasswordModel, UserClientRoleModel, IndirizzoModel e RecapitoModel con i dati forniti nella richiesta.
+     *
+     * @param  UserClientUpdateRequest  $request  Richiesta di aggiornamento dell'utente client.
+     * @param  int  $id  L'ID dell'utente client da aggiornare.
+     * @return \App\Http\Resources\UserClientResource Risorsa che rappresenta l'utente aggiornato.
      */
-    public function updateUserClient(UserClientUpdateRequest $request, $idUserClient)
+    public function updateUserClient(UserClientUpdateRequest $request, $id)
     {
         $dati = $request->validated();
-        $userClient = UserClientModel::findOrFail($idUserClient);
 
-        $userClient->update($dati);
+        $result = DB::transaction(function () use ($request, $dati, $id) {
+            $userClient = UserClientModel::findOrFail($id);
+            $userClient->update($dati);
 
-        return new UserClientResource($userClient);
+            $userAuth = UserAuthModel::where('idUserClient', $id)->first();
+            if ($userAuth) {
+                $userAuth->update([
+                    'user' => hash("sha512", trim($request->user)),
+                    'challenge' => hash("sha512", trim("Ciao")),
+                    'secretJWT' => hash("sha512", trim("Secret")),
+                    'challengeStart' => time()
+                ]);
+            }
+
+            $userPassword = UserPasswordModel::where('idUserClient', $id)->first();
+            if ($userPassword) {
+                $userPassword->update([
+                    'password' => hash("sha512", trim($request->password)),
+                    'salt' => hash("sha512", trim(random_bytes(32)))
+                ]);
+            }
+
+            // Considerando che non possiamo sapere quale "ruolo" o "indirizzo" o "recapito" si desidera aggiornare,
+            // questi sono esempi generici. Potrebbe essere necessario personalizzare ulteriormente.
+
+            $indirizzo = IndirizzoModel::where('idUserClient', $id)->first();
+            if ($indirizzo) {
+                $indirizzo->update([
+                    "idNazione" => $request->idNazione,
+                    "idComune" => $request->idComune,
+                    "indirizzo" => $request->indirizzo,
+                    "cap" => $request->cap
+                ]);
+            }
+
+            $recapito = RecapitoModel::where('idUserClient', $id)->first();
+            if ($recapito) {
+                $recapito->update([
+                    "recapito" => $request->recapito
+                ]);
+            }
+
+            return $userClient;
+        });
+
+        return new UserClientResource($result);
     }
+
+
 
     /**
      * Cancella un utente client dal sistema.

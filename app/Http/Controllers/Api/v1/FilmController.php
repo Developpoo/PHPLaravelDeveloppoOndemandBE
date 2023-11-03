@@ -11,6 +11,7 @@ use App\Http\Resources\v1\FilmCollection;
 use App\Http\Resources\v1\FilmResource;
 use App\Models\FileModel;
 use App\Models\FilmCategoryModel;
+use App\Models\FilmFileModel;
 use App\Models\FilmModel;
 use Illuminate\Support\Facades\DB;
 
@@ -202,34 +203,46 @@ class FilmController extends Controller
         try {
             if (Gate::allows('create')) {
                 if (Gate::allows('Administrator')) {
-                    $filmData = $request->validated();
-                    $fileData = $request->input('file_data', []);
+                    return DB::transaction(function () use ($request) {
+                        $filmData = $request->validated();
+                        $fileData = $request->input('files', []);
 
-                    // Crea il nuovo film
-                    $film = FilmModel::create($filmData);
+                        // Crea il nuovo film
+                        $film = FilmModel::create($filmData);
 
-                    // Associa i file al film utilizzando la tabella di relazione 'filmFile'
-                    $idFilms = $request->input('idFilms', []);
+                        // Associa i file al film utilizzando la tabella di relazione 'filmFile'
+                        $idFilms = $request->input('idFilms', []);
 
-                    foreach ($idFilms as $idFilm) {
-                        // Verifica se il file esiste
-                        $file = FileModel::find($idFilm);
+                        foreach ($idFilms as $idFilm) {
+                            // Verifica se il file esiste
+                            $file = FileModel::find($idFilm);
 
-                        if ($file) {
-                            // Associa il file al film nella tabella di relazione 'filmFile'
-                            $film->files()->attach($idFilm);
+                            if ($file) {
+                                // Inserisci la relazione nella tabella 'filmFile'
+                                FilmFileModel::create([
+                                    'idFilm' => $film->idFilm,
+                                    'idFile' => $file->idFile,
+                                ]);
+                            }
                         }
-                    }
 
-                    // Crea nuovi file nella tabella 'file' se sono stati forniti i dati
-                    foreach ($fileData as $fileDatum) {
-                        $file = FileModel::create($fileDatum);
+                        // Crea nuovi file nella tabella 'file' se sono stati forniti i dati
+                        foreach ($fileData as $fileDatum) {
+                            $file = FileModel::create($fileDatum);
 
-                        // Associa il nuovo file al film nella tabella di relazione 'filmFile'
-                        $film->files()->attach($file->id);
-                    }
+                            // Associa il nuovo file al film nella tabella di relazione 'filmFile'
+                            FilmFileModel::create([
+                                'idFilm' => $film->idFilm,
+                                'idFile' => $file->idFile,
+                            ]);
+                        }
 
-                    return new FilmResource($film);
+                        // Dopo aver creato il film e associato i file, carica la relazione 'file' se è necessario
+                        $film->load('files');
+
+
+                        return new FilmResource($film);
+                    });
                 } else {
                     abort(404, 'PE_0007');
                 }
@@ -241,6 +254,43 @@ class FilmController extends Controller
             return response()->json(['error' => 'Errore durante la creazione del film con i file associati.'], 500);
         }
     }
+
+    // public function storeFilmFile(Request $request)
+    // {
+    //     $filmData = $request->input('filmData'); // Assumi che filmData contenga i dati del film
+    //     $file1Data = $request->input('file1Data'); // Assumi che file1Data contenga i dati del primo file
+    //     $file2Data = $request->input('file2Data'); // Assumi che file2Data contenga i dati del secondo file
+
+    //     $result = DB::transaction(function () use ($filmData, $file1Data, $file2Data) {
+    //         // Inserire il film nella tabella "film"
+    //         $film = FilmModel::create($filmData);
+
+    //         // Inserire il primo file nella tabella "file"
+    //         $file1 = FileModel::create($file1Data);
+
+    //         // Inserire il secondo file nella tabella "file"
+    //         $file2 = FileModel::create($file2Data);
+
+    //         // Creare una nuova associazione tra $film->idFilm e $file1->idFile nella tabella "filmFile"
+    //         FilmFileModel::create([
+    //             'idFilm' => $film->idFilm,
+    //             'idFile' => $file1->idFile
+    //         ]);
+
+    //         // Creare una nuova associazione tra $film->idFilm e $file2->idFile nella tabella "filmFile"
+    //         FilmFileModel::create([
+    //             'idFilm' => $film->idFilm,
+    //             'idFile' => $file2->idFile
+    //         ]);
+
+    //         return $film; // Puoi restituire il film creato o qualsiasi altra risorsa che desideri
+    //     });
+
+    //     return response()->json(['message' => 'Film e File creati e associati con successo']);
+    // }
+
+
+
 
     /**
      * Restituisce un film specifico con i file associati.
@@ -255,7 +305,7 @@ class FilmController extends Controller
             $film = FilmModel::with('files')->findOrFail($idFilm);
 
             // Restituisci i dati come JSON
-            return response()->json(['film' => $film], 200);
+            return response()->json(['data' => $film], 200);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             // Gestisci il caso in cui il film non sia stato trovato
             return response()->json(['error' => 'Il film specificato non esiste.'], 404);

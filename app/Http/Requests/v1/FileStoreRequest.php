@@ -11,7 +11,7 @@ class FileStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,14 +22,14 @@ class FileStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "idFile" => 'required|integer',
+            // "idFile" => 'required|integer',
             "idTipoFile" => 'required|integer',
-            "nome" => 'required|string|max:45',
+            // "nome" => 'string|max:45',
             "src" => 'required|string|max:255',
             "alt" => 'required|string|max:45',
             "title" => 'required|string|max:45',
-            "descrizione" => 'required|string',
-            "formato" => 'required|string|max:45'
+            // "descrizione" => 'string',
+            // "formato" => 'string|max:45'
         ];
     }
 }

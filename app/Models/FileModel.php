@@ -14,7 +14,7 @@ class FileModel extends Model
     protected $primaryKey = "idFile";
 
     protected $fillable = [
-        "idFile",
+        // "idFile",
         "idTipoFile",
         "nome",
         "src",
@@ -26,7 +26,6 @@ class FileModel extends Model
 
     public function films()
     {
-        return $this->belongsToMany(FilmModel::class, 'filmFile', 'idFile', 'idFilm')
-            ->withTimestamps();
+        return $this->belongsToMany(FilmModel::class, 'filmFile', 'idFile', 'idFilm');
     }
 }

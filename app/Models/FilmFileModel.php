@@ -22,6 +22,6 @@ class FilmFileModel extends Model
 
     public function file()
     {
-        return $this->belongsToMany(FileModel::class, 'filmFile', 'idFile', 'idFilm');
+        return $this->belongsTo(FileModel::class, 'idFile', 'idFile');
     }
 }
