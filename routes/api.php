@@ -191,6 +191,7 @@ Route::middleware(['authentication', 'UserRoleMiddleware:Administrator,User,Mana
     Route::get(_VERS . '/film/{idFilm}', [FilmController::class, 'show']);
     Route::get(_VERS . '/filmFile', [FilmController::class, 'indexWithFiles']);
     Route::get(_VERS . '/filmFile/{idFilm}', [FilmController::class, 'showFilmFile']);
+    Route::get(_VERS . '/film/view/category/{idCategory}', [FilmController::class, 'indexViewCategory']);
     // Route::get(_VERS . '/filmFile/category/{idCategory}', [FilmController::class, 'storeFilmFileCategory']);
 
     // FILE

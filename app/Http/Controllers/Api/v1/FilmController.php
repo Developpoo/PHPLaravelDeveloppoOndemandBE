@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\v1\FilmUpdateRequest;
 use App\Http\Resources\v1\FilmCollection;
 use App\Http\Resources\v1\FilmResource;
+use App\Http\Resources\v1\FilmViewCollection;
 use App\Models\FileModel;
 use App\Models\FilmCategoryModel;
 use App\Models\FilmFileModel;
@@ -78,6 +79,26 @@ class FilmController extends Controller
             abort(403, 'PE_0007');
         }
     }
+
+    /**
+     * Display a listing of the resource.
+     * 
+     * @param char $idCategory
+     * @return JsonResource
+     */
+    public function indexViewCategory($idCategory)
+    {
+        if (Gate::allows('read')) {
+            $filmFromView = DB::table('vistaFilmFileCategory')
+                ->where('idCategory', $idCategory)
+                ->get();
+
+            return new FilmViewCollection($filmFromView);
+        } else {
+            abort(403, 'PE_0007 VistaFilmCategoryFile');
+        }
+    }
+
 
     /**
      * Store a newly created resource in storage.
