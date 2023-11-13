@@ -15,7 +15,10 @@ class RegistaModel extends Model
     protected $fillable = [
         "idRegista",
         "idNazione",
-        "nome"
+        "nome",
+        'src',
+        'alt',
+        'title'
     ];
 
     public function nazioni()

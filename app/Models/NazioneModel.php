@@ -17,9 +17,13 @@ class NazioneModel extends Model
         'idNazione',
         'nome',
         'continente',
+        'src',
+        'alt',
+        'title',
         'iso3',
         'iso',
-        'prefissoTelefonico'
+        'prefissoTelefonico',
+        'watch'
     ];
 
     public function film()

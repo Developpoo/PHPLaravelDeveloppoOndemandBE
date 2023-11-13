@@ -16,23 +16,25 @@ class NazioneResource extends JsonResource
     {
         // return parent::toArray($request);
         return $this->getCampi();
-
     }
 
     // PROTECTED
     // Funzione che serve a non visualizzare tutti i campi che mi richiamo in modo protected per sostituire return parent::toArray($request); che altrimenti mi avrebbe
     // mostrato sempre tutti i campi della tabella
 
-    protected function getCampi() 
+    protected function getCampi()
     {
         return [
             "idNazione" => $this->idNazione,
             "nome" => $this->nome,
             "continente" => $this->continente,
+            "src" => $this->src,
+            "alt" => $this->alt,
+            "title" => $this->title,
             "iso" => $this->iso,
             "iso3" => $this->iso3,
-            "prefissoTelefonico" => $this->prefissoTelefonico
+            "prefissoTelefonico" => $this->prefissoTelefonico,
+            "watch" => $this->watch
         ];
     }
-    }
-
+}

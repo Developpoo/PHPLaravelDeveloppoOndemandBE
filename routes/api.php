@@ -192,7 +192,13 @@ Route::middleware(['authentication', 'UserRoleMiddleware:Administrator,User,Mana
     Route::get(_VERS . '/filmFile', [FilmController::class, 'indexWithFiles']);
     Route::get(_VERS . '/filmFile/{idFilm}', [FilmController::class, 'showFilmFile']);
     Route::get(_VERS . '/film/view/category/{idCategory}', [FilmController::class, 'indexViewCategory']);
+    Route::get(_VERS . '/film/view/nazioni/{idNazione}', [FilmController::class, 'indexViewNazioni']);
+    Route::get(_VERS . '/film/view/registi/{idRegista}', [FilmController::class, 'indexViewRegisti']);
     // Route::get(_VERS . '/filmFile/category/{idCategory}', [FilmController::class, 'storeFilmFileCategory']);
+
+    // REGISTA
+    Route::get(_VERS . '/registi', [FilmController::class, 'indexRegista']);
+
 
     // FILE
     Route::get(_VERS . '/file', [FileController::class, 'index']);

@@ -15,7 +15,10 @@ class AttoreModel extends Model
     protected $fillable = [
         "idAttore",
         "idNazione",
-        "nome"
+        "nome",
+        'src',
+        'alt',
+        'title'
     ];
 
     public function nazioni()

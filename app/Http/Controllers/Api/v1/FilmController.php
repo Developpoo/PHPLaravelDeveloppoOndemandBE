@@ -10,10 +10,12 @@ use App\Http\Requests\v1\FilmUpdateRequest;
 use App\Http\Resources\v1\FilmCollection;
 use App\Http\Resources\v1\FilmResource;
 use App\Http\Resources\v1\FilmViewCollection;
+use App\Http\Resources\v1\RegistaCollection;
 use App\Models\FileModel;
 use App\Models\FilmCategoryModel;
 use App\Models\FilmFileModel;
 use App\Models\FilmModel;
+use App\Models\RegistaModel;
 use Illuminate\Support\Facades\DB;
 
 class FilmController extends Controller
@@ -99,6 +101,63 @@ class FilmController extends Controller
         }
     }
 
+    /**
+     * Display a listing of the resource.
+     * 
+     * @param char $idNazione
+     * @return JsonResource
+     */
+    public function indexViewNazioni($idNazione)
+    {
+        if (Gate::allows('read')) {
+            $filmFromView = DB::table('vistaFilmFileNazioni')
+                ->where('idNazione', $idNazione)
+                ->get();
+
+            return new FilmViewCollection($filmFromView);
+        } else {
+            abort(403, 'PE_0007 VistaFilmNazioniFile');
+        }
+    }
+
+    /**
+     * Display a listing of the resource.
+     * @return JsonResource
+     */
+    public function indexRegista()
+    {
+
+        if (Gate::allows("read")) {
+            $nome = (request("nome") != null) ? request("nome") : null;
+            if ($nome != null) {
+                $regista = RegistaModel::all()->where('nome', $nome);
+            } else {
+                $regista = RegistaModel::all();
+            }
+            return new RegistaCollection($regista);
+        } else {
+            abort(403, 'PE_0001');
+        }
+    }
+
+    /**
+     * Display a listing of the resource.
+     * 
+     * @param char $idRegista
+     * @return JsonResource
+     */
+    public function indexViewRegisti($idRegista)
+    {
+        if (Gate::allows('read')) {
+            $filmFromView = DB::table('vistaFilmFileRegisti')
+                ->where('idRegista', $idRegista)
+                ->get();
+
+            return new FilmViewCollection($filmFromView);
+        } else {
+            abort(403, 'PE_0007 VistaFilmRegistaFile');
+        }
+    }
 
     /**
      * Store a newly created resource in storage.
